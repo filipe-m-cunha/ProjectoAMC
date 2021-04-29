@@ -1,6 +1,7 @@
 package projectoEntrega1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MRFT {
 	
@@ -10,19 +11,37 @@ public class MRFT {
 	int dSpec;
 	
 	
+	public double Phi(int i, int j) {
+		
+		//Muito provavelmente não é isto, tenho que confirmar com o prof
+		
+		double phi = 0;
+		
+		for(double k1:dataset.distinctValues[i]) {
+			for(double k2:dataset.distinctValues[j]) {
+				phi += dataset.Count(new ArrayList<>(Arrays.asList(i, j)), new ArrayList<>(Arrays.asList(k1, k2)))/dataset.Count(new ArrayList<>(Arrays.asList(i)), new ArrayList<>(Arrays.asList(k1)));
+			}
+		}
+		return phi;
+	}
+	
 	public MRFT(Dataset dataset, int oSpec, int dSpec) {
 		
 		this.dataset = dataset;
 		this.oSpec = oSpec;
 		this.dSpec = dSpec;
 		
-		this.wGraph = new WeightedGraph(this.dataset.totalSize());
-		//TODO: Perceber exatamente o que é dito por x_i, x_j
+		this.wGraph = new WeightedGraph(this.dataset.dim);
+		for(int i=0; i<this.dataset.dim; i++) {
+			for(int j=0; j<this.dataset.dim; j++) {
+				this.wGraph.m[i][j] = Phi(i,j);
+			}
+		}
 		
 	}
 
 	public double Prob(ArrayList<Integer> vector) {
-		double prob = 0;
+		double prob = 1;
 		for (int i=0; i<vector.size(); i++) {
 			for(int j=i+1; j<vector.size(); j++) {
 				//Ainda não percebi exatamente o que são os x_i, x_j (TODO)

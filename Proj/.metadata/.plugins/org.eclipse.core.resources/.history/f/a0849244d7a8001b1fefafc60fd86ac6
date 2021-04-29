@@ -7,7 +7,6 @@ public class Dataset {
 	int dim;
 	int indices[];
 	double values[][];
-	double distinctValues[][];
 	
 	public Dataset(int dim) {
 		//TODO: Implement Method
