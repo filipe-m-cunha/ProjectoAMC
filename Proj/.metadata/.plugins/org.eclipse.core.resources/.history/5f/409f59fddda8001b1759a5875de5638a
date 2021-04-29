@@ -70,6 +70,15 @@ public class Dataset {
 		}
 		return temp;
 	}
-
+	
+	public int numValues(int index) {
+		//TODO: Implement Method
+		return 0;
+	}
+	
+	public int totalSize() {
+		//TODO: ImplementMethod
+		return 10;
+	}
 
 }

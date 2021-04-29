@@ -17,8 +17,8 @@ public class MRFT {
 		
 		double phi = 0;
 		
-		for(double k1:dataset.distinctValues.get(i)) {
-			for(double k2:dataset.distinctValues.get(i)) {
+		for(double k1:dataset.distinctValues[i]) {
+			for(double k2:dataset.distinctValues[j]) {
 				phi += dataset.Count(new ArrayList<>(Arrays.asList(i, j)), new ArrayList<>(Arrays.asList(k1, k2)))/dataset.Count(new ArrayList<>(Arrays.asList(i)), new ArrayList<>(Arrays.asList(k1)));
 			}
 		}
