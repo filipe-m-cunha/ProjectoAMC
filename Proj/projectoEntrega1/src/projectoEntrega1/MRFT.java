@@ -1,53 +1,57 @@
 package projectoEntrega1;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Stack;
 
 public class MRFT {
 	
 	Dataset dataset;
-	WeightedGraph wGraph;
+	Graph graph;
 	int oSpec;
-	int dSpec;
+	double delta;
+	ArrayList<int[]> lisEdges;
+	ArrayList<int[][]> phis;
 	
-	/*
-	public double Phi(int i, int j) {
-		
-		//Muito provavelmente não é isto, tenho que confirmar com o prof
-		
-		double phi = 0;
-		
-		for(int k1:dataset.distinctValues.get(i)) {
-			for(int k2:dataset.distinctValues.get(i)) {
-				phi += dataset.Count(new ArrayList<>(Arrays.asList(i, j)), new ArrayList<>(Arrays.asList(k1, k2)))/dataset.Count(new ArrayList<>(Arrays.asList(i)), new ArrayList<>(Arrays.asList(k1)));
-			}
-		}
-		return phi;
-	}
-	
-	public MRFT(Dataset dataset, int oSpec, int dSpec) {
+	public MRFT(Dataset dataset, Graph tree) {
 		
 		this.dataset = dataset;
-		this.oSpec = oSpec;
-		this.dSpec = dSpec;
+		this.graph = new Graph(tree.dim);
+		this.lisEdges = new ArrayList<int[]>();
 		
-		this.wGraph = new WeightedGraph(this.dataset.dim);
-		for(int i=0; i<this.dataset.dim; i++) {
-			for(int j=0; j<this.dataset.dim; j++) {
-				this.wGraph.m[i][j] = Phi(i,j);
+		Stack<Integer> stack = new Stack<Integer>();
+		boolean[] visited = new boolean[tree.dim];
+		stack.push(oSpec);
+		while(! stack.isEmpty()) {
+			int node = stack.pop();
+			if(!visited[node]) {
+				visited[node] = true;
+				for(int i:tree.offspring(node)) {
+					stack.push(i);
+					this.graph.addEdge(node, i);
+					this.lisEdges.add(new int[] {node, i});
+				}
 			}
 		}
 		
+		this.phis = new ArrayList<int[][]>();
+		for(int i = 0; i<this.lisEdges.size(); i++) {
+			
+			this.phis.add(new int[this.dataset.domain[lisEdges.get(i)[0]]][this.dataset.domain[lisEdges.get(i)[1]]]);
+			
+			for(int j = 0; j<this.dataset.domain[lisEdges.get(i)[0]]; j++) {
+				for(int k = 0; j<this.dataset.domain[lisEdges.get(i)[1]]; k++) {
+					int [][] phi = this.phis.get(i);
+					ArrayList<Integer> tempI = new ArrayList<Integer>();
+					ArrayList<Integer> tempV = new ArrayList<Integer>();
+					tempI.add(lisEdges.get(i)[0]);
+					tempI.add(lisEdges.get(i)[1]);
+					tempV.add(j);
+					tempV.add(k);
+					phi[j][k] = dataset.Count(tempI, tempV);
+					this.phis.set(i, phi);
+				}
+			}
+		}
 	}
-
-	public double Prob(ArrayList<Integer> vector) {
-		double prob = 1;
-		for (int i=0; i<vector.size(); i++) {
-			for(int j=i+1; j<vector.size(); j++) {
-				//Ainda não percebi exatamente o que são os x_i, x_j (TODO)
-				prob = prob*this.wGraph.m[vector.get(i)][vector.get(j)];
-			}
-		}
-		return prob;
-	}*/
+	
 }
