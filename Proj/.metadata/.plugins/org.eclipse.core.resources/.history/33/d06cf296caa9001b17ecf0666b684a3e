@@ -1,0 +1,103 @@
+package projectoEntrega1;
+
+import java.util.ArrayList;
+
+public class Dataset {
+	
+	int dim;
+	ArrayList<ArrayList<Integer>> values;
+	ArrayList<ArrayList<Integer>> distinctValues;
+	int size;
+	
+	
+	
+	public Dataset(int dim) {
+		this.dim = dim;
+		this.values = new ArrayList<ArrayList<Integer>>();
+		this.distinctValues = new ArrayList<ArrayList<Integer>>();
+		this.size=0;
+	}
+	
+	public int getDim() {
+		return dim;
+	}
+
+	public void setDim(int dim) {
+		this.dim = dim;
+	}
+
+	public ArrayList<ArrayList<Integer>> getValues() {
+		return values;
+	}
+
+	public void setValues(ArrayList<ArrayList<Integer>> values) {
+		this.values = values;
+	}
+
+	public ArrayList<ArrayList<Integer>> getDistinctValues() {
+		return distinctValues;
+	}
+
+	public void setDistinctValues(ArrayList<ArrayList<Integer>> distinctValues) {
+		this.distinctValues = distinctValues;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public Dataset(int dim, int indices[]) {
+		this.dim = dim;
+		this.values = new ArrayList<ArrayList<Integer>>();
+		this.distinctValues = new ArrayList<ArrayList<Integer>>();
+		this.size=0;
+	}
+	
+	public void Add(ArrayList<Integer> vector) throws Exception{
+		if(vector.size() == this.dim) {
+			this.values.add(vector);
+			this.size += 1;
+			for(int i = 1; i<dim; i++) {
+				if(! distinctValues.get(i).contains(vector.get(i))) {
+					distinctValues.get(i).add(vector.get(i));
+				}
+			}
+		}
+		else {
+			throw new Exception("vector size does not match dataset size");
+		}
+	}
+	
+	public int Count(ArrayList<Integer> indices, ArrayList<Integer> vector) {
+		int count = 0;
+		for(int i = 0; i<this.size; i++) {
+			ArrayList<Integer> toAnalyse = values.get(i);
+			boolean ok = true;
+			for(int j=0; j<indices.size() && ok; j++) {
+				if(toAnalyse.get(indices.get(j))!=vector.get(j)) {
+					ok = false;
+				}
+			}
+			if (ok) {count += 1;}
+		}
+		return count;
+	}
+	
+	public double[][] Fiber(int classe){
+		//TODO: Implement method
+		
+		double[][] temp = new double[dim][dim];
+		for (int i=0; i<dim; i++) {
+			for(int j=0; j<dim; j++) {
+				temp[i][j] = 0;
+			}
+		}
+		return temp;
+	}
+
+
+}

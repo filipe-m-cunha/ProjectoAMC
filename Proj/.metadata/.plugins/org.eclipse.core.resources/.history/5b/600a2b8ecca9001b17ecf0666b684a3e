@@ -10,7 +10,7 @@ public class MRFT {
 	int oSpec;
 	int dSpec;
 	
-	/*
+	
 	public double Phi(int i, int j) {
 		
 		//Muito provavelmente não é isto, tenho que confirmar com o prof
@@ -49,5 +49,5 @@ public class MRFT {
 			}
 		}
 		return prob;
-	}*/
+	}
 }

@@ -5,37 +5,26 @@ import java.util.ArrayList;
 public class Dataset {
 	
 	int dim;
-	int indices[];
-	ArrayList<ArrayList<Double>> values;
-	ArrayList<ArrayList<Double>> distinctValues;
+	ArrayList<int[]> values;
+	int domain[];
 	int size;
+	
+	
 	
 	public Dataset(int dim) {
 		this.dim = dim;
-		this.indices = new int[dim];
-		for(int i=1; i<dim; i++) {
-			indices[i] = i;
-		}
-		this.values = new ArrayList<ArrayList<Double>>();
-		this.distinctValues = new ArrayList<ArrayList<Double>>();
+		this.values = new ArrayList<int[]>();
+		this.domain = new int[dim];
 		this.size=0;
 	}
 	
-	public Dataset(int dim, int indices[]) {
-		this.dim = dim;
-		this.indices = indices;
-		this.values = new ArrayList<ArrayList<Double>>();
-		this.distinctValues = new ArrayList<ArrayList<Double>>();
-		this.size=0;
-	}
-	
-	public void Add(ArrayList<Double> vector) throws Exception{
-		if(vector.size() == this.dim) {
+	public void Add(int[] vector) throws Exception{
+		if(vector.length == this.dim) {
 			this.values.add(vector);
 			this.size += 1;
 			for(int i = 1; i<dim; i++) {
-				if(! distinctValues.get(i).contains(vector.get(i))) {
-					distinctValues.get(i).add(vector.get(i));
+				if(vector[i]>this.domain[i]) {
+					this.domain[i] = vector[i];
 				}
 			}
 		}
@@ -44,17 +33,16 @@ public class Dataset {
 		}
 	}
 	
-	public int Count(ArrayList<Integer> indices, ArrayList<Double> vector) {
+	public int Count(ArrayList<Integer> indices, ArrayList<Integer> vector) {
 		int count = 0;
-		for(int i = 0; i<this.size; i++) {
-			ArrayList<Double> toAnalyse = values.get(i);
-			boolean ok = true;
-			for(int j=0; j<indices.size() && ok; j++) {
-				if(toAnalyse.get(indices.get(j))!=vector.get(j)) {
-					ok = false;
+		for(int i = 0; i<values.size(); i++) {
+			boolean found = true;
+			for(int j=0; j<indices.size() && found; j++) {
+				if(vector.get(j) != values.get(i)[indices.get(j)]) {
+					found = false;
 				}
 			}
-			if (ok) {count += 1;}
+			if(found) {count+=1;}
 		}
 		return count;
 	}
@@ -71,5 +59,24 @@ public class Dataset {
 		return temp;
 	}
 
+	public static void main(String[] args) {
+		try {
+			Dataset df = new Dataset(2);
+			df.Add(new int[] {1, 2});
+			df.Add(new int[] {2, 3});
+			df.Add(new int[] {2, 3});
+			df.Add(new int[] {7, 8});
+			ArrayList<Integer> testI = new ArrayList<Integer>();
+			ArrayList<Integer> testV = new ArrayList<Integer>();
+			testI.add(0);
+			testI.add(1);
+			testV.add(2);
+			testV.add(3);
+			System.out.println(df.Count(testI, testV));
+	}
+		catch (Exception e) {
+			e.printStackTrace();
 
+		}
+	}
 }

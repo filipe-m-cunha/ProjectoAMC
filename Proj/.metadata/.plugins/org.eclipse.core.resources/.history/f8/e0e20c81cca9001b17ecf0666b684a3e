@@ -10,15 +10,15 @@ public class MRFT {
 	int oSpec;
 	int dSpec;
 	
-	/*
+	
 	public double Phi(int i, int j) {
 		
 		//Muito provavelmente não é isto, tenho que confirmar com o prof
 		
 		double phi = 0;
 		
-		for(int k1:dataset.distinctValues.get(i)) {
-			for(int k2:dataset.distinctValues.get(i)) {
+		for(double k1:dataset.distinctValues.get(i)) {
+			for(double k2:dataset.distinctValues.get(i)) {
 				phi += dataset.Count(new ArrayList<>(Arrays.asList(i, j)), new ArrayList<>(Arrays.asList(k1, k2)))/dataset.Count(new ArrayList<>(Arrays.asList(i)), new ArrayList<>(Arrays.asList(k1)));
 			}
 		}
@@ -49,5 +49,5 @@ public class MRFT {
 			}
 		}
 		return prob;
-	}*/
+	}
 }
