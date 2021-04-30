@@ -12,12 +12,11 @@ public class MRFT {
 	ArrayList<int[]> lisEdges;
 	ArrayList<int[][]> phis;
 	
-	public MRFT(Dataset dataset, Graph tree, int oSpec) {
+	public MRFT(Dataset dataset, Graph tree) {
 		
 		this.dataset = dataset;
 		this.graph = new Graph(tree.dim);
 		this.lisEdges = new ArrayList<int[]>();
-		this.oSpec = oSpec;
 		
 		Stack<Integer> stack = new Stack<Integer>();
 		boolean[] visited = new boolean[tree.dim];
