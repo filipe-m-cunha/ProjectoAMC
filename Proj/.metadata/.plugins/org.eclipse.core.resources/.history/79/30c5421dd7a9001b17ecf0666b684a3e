@@ -10,7 +10,7 @@ public class MRFT {
 	int oSpec;
 	double delta;
 	ArrayList<int[]> lisEdges;
-	ArrayList<double[][]> phis;
+	ArrayList<int[][]> phis;
 	
 	public MRFT(Dataset dataset, Graph tree, int oSpec, double delta) {
 		
@@ -35,25 +35,21 @@ public class MRFT {
 			}
 		}
 		
-		this.phis = new ArrayList<double[][]>();
+		this.phis = new ArrayList<int[][]>();
 		for(int i = 0; i<this.lisEdges.size(); i++) {
 			
-			this.phis.add(new double[this.dataset.domain[lisEdges.get(i)[0]]][this.dataset.domain[lisEdges.get(i)[1]]]);
+			this.phis.add(new int[this.dataset.domain[lisEdges.get(i)[0]]][this.dataset.domain[lisEdges.get(i)[1]]]);
 			
 			for(int j = 0; j<this.dataset.domain[lisEdges.get(i)[0]]; j++) {
-				ArrayList<Integer> temp1 = new ArrayList<Integer>();
-				ArrayList<Integer> temp2 = new ArrayList<Integer>();
-				temp1.add(lisEdges.get(i)[0]);
-				temp2.add(j);
 				for(int k = 0; j<this.dataset.domain[lisEdges.get(i)[1]]; k++) {
-					double [][] phi = this.phis.get(i);
+					int [][] phi = this.phis.get(i);
 					ArrayList<Integer> tempI = new ArrayList<Integer>();
 					ArrayList<Integer> tempV = new ArrayList<Integer>();
 					tempI.add(lisEdges.get(i)[0]);
 					tempI.add(lisEdges.get(i)[1]);
 					tempV.add(j);
 					tempV.add(k);
-					phi[j][k] = (dataset.Count(tempI, tempV) + this.delta)/dataset.Count(temp1, temp2);
+					phi[j][k] = (dataset.Count(tempI, tempV) + this.delta)/dataset.Count(tempI.remove(Integer.valueOf(1)), tempV.remove(Integer.valueOf(1)));
 					this.phis.set(i, phi);
 				}
 			}
@@ -100,11 +96,11 @@ public class MRFT {
 		this.lisEdges = lisEdges;
 	}
 
-	public ArrayList<double[][]> getPhis() {
+	public ArrayList<int[][]> getPhis() {
 		return phis;
 	}
 
-	public void setPhis(ArrayList<double[][]> phis) {
+	public void setPhis(ArrayList<int[][]> phis) {
 		this.phis = phis;
 	}
 	
