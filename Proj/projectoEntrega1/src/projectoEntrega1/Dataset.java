@@ -15,6 +15,9 @@ public class Dataset {
 		this.dim = dim;
 		this.values = new ArrayList<int[]>();
 		this.domain = new int[dim];
+		for(int i=0; i<dim; i++) {
+			domain[i] = 0;
+		}
 		this.size=0;
 	}
 	
@@ -22,7 +25,7 @@ public class Dataset {
 		if(vector.length == this.dim) {
 			this.values.add(vector);
 			this.size += 1;
-			for(int i = 1; i<dim; i++) {
+			for(int i = 0; i<dim; i++) {
 				if(vector[i]>this.domain[i]) {
 					this.domain[i] = vector[i];
 				}
