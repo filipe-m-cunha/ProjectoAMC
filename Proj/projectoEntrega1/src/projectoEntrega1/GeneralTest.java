@@ -98,14 +98,17 @@ class GeneralTest {
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		System.out.println(df2.values.size());
 		System.out.println(Arrays.toString(this.df2.domain));
 		this.g1 = new Graph(8);
-		int[][] edges = {{0,4}, {0,6}, {1,2}, {2,1}, {2,3}, {2,6}, {2,7}, {3,5}, {4,3}, {4,5}, {5,3}, {6,3}, {6,5}, {7,2}, {7,5}};
+		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {1,4}, {4,1}, {1,5}, {5,1}, {2,7}, {7,2}, {3,6}, {6,3}};
 		for(int[] e : edges) {
 			g1.addEdge(e[0], e[1]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
 		ArrayList<Integer> testV3 = new ArrayList<Integer>();
+		ArrayList<Integer> testV4 = new ArrayList<Integer>();
+		ArrayList<Integer> testV5 = new ArrayList<Integer>();
 		testV3.add(1);
 		testV3.add(2);
 		testV3.add(3);
@@ -114,7 +117,17 @@ class GeneralTest {
 		testV3.add(6);
 		testV3.add(7);
 		testV3.add(8);
-		System.out.println(m1.probability(testV3));
+		for(int i = 0; i<=7; i++) {
+			testV4.add(1);
+		}
+		testV5.add(1);
+		for(int i = 0; i<7; i++) {
+			testV5.add(2);
+		}
+		System.out.println(this.m1.probability(testV3));
+		System.out.println(this.m1.probability(testV4));
+		System.out.println(this.m1.probability(testV5));
+		System.out.println(this.m1.graph);
 	}
 
 }
