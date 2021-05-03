@@ -41,7 +41,7 @@ public class WeightedGraph extends Graph{
 			throw new AssertionError("Vertice not in graph");
 		}
 	}
-	// i
+
 	public void addEdge(int orig, int dest, int weig) {
 		if (!this.edgeQ(orig, dest)) {
 			this.adj.get(orig).add(new Edge(orig, dest, weig));
@@ -49,7 +49,6 @@ public class WeightedGraph extends Graph{
 	}
 
 
-	// ii
 	public int getWeight(int orig, int dest) {
 		if (this.edgeQ(orig, dest)) {
 			for (Edge e : this.adj.get(orig)) {
@@ -61,7 +60,6 @@ public class WeightedGraph extends Graph{
 		return 0;
 	}
 
-	// iii
 	public ArrayList<Integer> offspring(int orig){
 		System.out.println("offspring do wg...");
 		if (orig >= 0 && orig < this.dim) {
@@ -75,31 +73,11 @@ public class WeightedGraph extends Graph{
 		}
 	}
 
-	// iv
 	public int pathCost(ArrayList<Integer> path) {
 		int r = 0;
 		for (int i = 0; i < path.size() - 1; i++) {
 			r += this.getWeight(path.get(i), path.get(i+1));
 		}
 		return r;
-	}
-
-	@Override
-	public String toString() {
-		return "WeightedGraph [adj=" + adj + "]";
-	}
-
-	public static void main(String[] args) {
-		WeightedGraph wg = new WeightedGraph(3);
-		wg.addEdge(0, 1, 3);
-		wg.addEdge(1, 2, 10);
-		wg.addEdge(2, 0, 5);
-		System.out.println(wg);
-		System.out.println(wg.getWeight(1, 2));
-		System.out.println(wg.offspring(1));
-		Integer[] l = {1,2,0,1};
-		ArrayList<Integer> al = new ArrayList<Integer>(Arrays.asList(l));
-		System.out.println(wg.pathCost(al));
-		System.out.println(wg.BFS(0));
 	}
 }
