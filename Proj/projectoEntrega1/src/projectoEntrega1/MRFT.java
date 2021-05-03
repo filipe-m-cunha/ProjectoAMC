@@ -65,7 +65,7 @@ public class MRFT {
 		temp2I.add(i1);
 		temp2V.add(x1);
 		if(i1==this.oSpec && i2==this.dSpec) {
-			return (this.dataset.Count(temp1I, temp1V) + this.delta)/(this.dataset.values.size()*this.dataset.dim + this.delta*this.dataset.domain[i1]);
+			return (this.dataset.Count(temp1I, temp1V) + this.delta)/(this.dataset.values.size()*this.dataset.dim + this.delta*this.dataset.domain[i1]*this.dataset.domain[i2]);
 		}
 		else {
 			return (this.dataset.Count(temp1I, temp1V) + this.delta)/(this.dataset.Count(temp2I, temp2V) + this.delta*this.dataset.domain[i1]);
