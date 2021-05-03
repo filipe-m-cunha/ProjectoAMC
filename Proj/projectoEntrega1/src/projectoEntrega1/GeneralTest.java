@@ -101,7 +101,7 @@ class GeneralTest {
 		System.out.println(df2.values.size());
 		System.out.println(Arrays.toString(this.df2.domain));
 		this.g1 = new Graph(8);
-		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {1,4}, {4,1}, {1,5}, {5,1}, {2,7}, {7,2}, {3,6}, {6,3}};
+		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {0,4}, {4,0}, {0,5}, {5,0}, {0,7}, {7,0}, {0,6}, {6,0}};
 		for(int[] e : edges) {
 			g1.addEdge(e[0], e[1]);
 		}
