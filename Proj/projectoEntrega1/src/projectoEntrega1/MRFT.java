@@ -21,6 +21,7 @@ public class MRFT {
 	
 	//Construtor, dado um dataset, uma árvore, um vértice de origem para a aresta especial e um valor de delta
 	public MRFT(Dataset dataset, Graph tree, int oSpec, double delta) {
+		super();
 		
 		//Começa por inicializar todas as variáveis da classe, o dataset, origem da aresta especial e o delta
 		//como os valores dados, a lista das arestas como uma lista vazia e o grafo como um grafo vazio.
