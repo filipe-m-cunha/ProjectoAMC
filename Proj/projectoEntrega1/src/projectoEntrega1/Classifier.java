@@ -19,9 +19,9 @@ public class Classifier {
 		prob[0] = 0; prob[1] = 0;
 		for(int i=0; i<this.mrfts.size(); i++) {
 			MRFT mrft = this.mrfts.get(i);
-			if(mrft.probability(vector) > prob[1]) {
+			if(mrft.probability(vector)*this.frequence[i] > prob[1]) {
 				prob[0] = i;
-				prob[1] = mrft.probability(vector);
+				prob[1] = mrft.probability(vector)*this.frequence[i];
 			}
 		}
 		return (int) prob[0];
