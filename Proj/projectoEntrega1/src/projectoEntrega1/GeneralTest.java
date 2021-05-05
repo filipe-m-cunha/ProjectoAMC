@@ -21,8 +21,8 @@ class GeneralTest {
 	
 	@Before
 	void init() {
-		this.df1 = new Dataset(3);
-		this.df2 = new Dataset(8);
+		this.df1 = new Dataset();
+		this.df2 = new Dataset();
 		this.g1 = new Graph(8);
 		int[][] edges = {{0,4}, {0,6}, {1,2}, {2,1}, {2,3}, {2,6}, {2,7}, {3,5}, {4,3}, {4,5}, {5,3}, {6,3}, {6,5}, {7,2}, {7,5}};
 		for(int[] e : edges) {
@@ -33,8 +33,8 @@ class GeneralTest {
 
 	@Test
 	void testAddDatasetTest() throws Exception {
-		this.df1 = new Dataset(3);
-		this.df2 = new Dataset(8);
+		this.df1 = new Dataset();
+		this.df2 = new Dataset();
 		this.df1.Add(new int[] {1, 2, 3});
 		this.df1.Add(new int[] {2, 3, 5});
 		this.df1.Add(new int[] {2, 3, 6});
@@ -46,8 +46,8 @@ class GeneralTest {
 	
 	@Test
 	void countTest() throws Exception {
-		this.df1 = new Dataset(3);
-		this.df2 = new Dataset(8);
+		this.df1 = new Dataset();
+		this.df2 = new Dataset();
 		this.df1.Add(new int[] {1, 2, 3});
 		this.df1.Add(new int[] {2, 3, 5});
 		this.df1.Add(new int[] {2, 3, 6});
@@ -93,7 +93,7 @@ class GeneralTest {
 	
 	@Test
 	void testMRFT() throws Exception {
-		this.df2 = new Dataset(8);
+		this.df2 = new Dataset();
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});

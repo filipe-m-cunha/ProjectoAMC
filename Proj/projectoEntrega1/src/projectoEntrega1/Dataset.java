@@ -15,19 +15,25 @@ public class Dataset {
 	
 	
 	
-	public Dataset(int dim) {
+	public Dataset() {
 		super();
 		this.dim = 0;
 		this.values = new ArrayList<int[]>();
 		this.domain = null;
 	}
 	
-	public Dataset(String file) throws IOException {
+	public Dataset(String file) throws Exception {
 		
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		while((line=reader.readLine())!= null) {
 			System.out.println(line);
+			String [] sl = line.split(",");
+			int a[] = new int[sl.length];
+			for(int i = 0; i<sl.length; i++) {
+				a[i] = Integer.parseInt(sl[i]);
+			}
+			Add(a);
 		}
 		reader.close();
 	}
@@ -81,21 +87,19 @@ public class Dataset {
 		return count;
 	}
 	
-	public double[][] Fiber(int classe){
-		//TODO: Implement method
-		
-		double[][] temp = new double[dim][dim];
-		for (int i=0; i<dim; i++) {
-			for(int j=0; j<dim; j++) {
-				temp[i][j] = 0;
+	public Dataset Fiber(int classe) throws Exception{
+		Dataset fiber = new Dataset();
+		for(int i = 0; i<this.values.size(); i++) {
+			if(this.values.get(i)[this.dim-1] == classe) {
+				fiber.Add(this.values.get(i));
 			}
 		}
-		return temp;
+		return fiber;
 	}
 
 	public static void main(String[] args) {
 		try {
-			Dataset df = new Dataset(2);
+			Dataset df = new Dataset();
 			df.Add(new int[] {1, 2});
 			df.Add(new int[] {2, 3});
 			df.Add(new int[] {2, 3});
