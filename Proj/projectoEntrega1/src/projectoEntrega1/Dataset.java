@@ -50,11 +50,16 @@ public class Dataset {
 	// -> Se a dimensão estiver certa, o vetor é adicionado à ArrayList dos valores do conjunto de dados.
 	
 	public void Add(int[] vector) throws Exception{
-		if(this.dim == 0 ) {
+		if(this.dim == 0) {
 			this.values.add(vector);
 			this.dim = vector.length;
-			this.domain = vector;
+			this.domain = new int[vector.length];
+			for(int i = 0; i<dim; i++) {
+				if(vector[i]>this.domain[i]) {
+					this.domain[i] = vector[i];
+				}
 			}
+		}
 		else{
 			if(vector.length == this.dim) {
 				this.values.add(vector);

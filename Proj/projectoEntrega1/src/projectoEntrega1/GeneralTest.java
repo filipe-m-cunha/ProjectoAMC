@@ -15,9 +15,9 @@ class GeneralTest {
 	
 	private Dataset df1;
 	private Dataset df2;
+	private Dataset df3;
 	private Graph g1;
 	private MRFT m1;
-	private MRFT m2;
 	
 	@Before
 	void init() {
@@ -89,6 +89,25 @@ class GeneralTest {
 		testV3.add(7);
 		testV3.add(8);
 		assertEquals(this.df2.Count(testI3, testV3), 4);
+	}
+	
+	@Test
+	void fiberTest() throws Exception {
+		this.df1 = new Dataset();
+		this.df2 = new Dataset();
+		this.df3 = new Dataset();
+		this.df1.Add(new int[] {1, 2, 0});
+		this.df1.Add(new int[] {2, 3, 1});
+		this.df1.Add(new int[] {2, 3, 0});
+		this.df1.Add(new int[] {7, 8, 1});
+		this.df2.Add(new int[] {2, 3, 1});
+		this.df2.Add(new int[] {7, 8, 1});
+		this.df3.Add(new int[] {1, 2, 0});
+		this.df3.Add(new int[] {2, 3, 0});
+		assertEquals(this.df1.Fiber(0).values.get(0)[0], this.df3.values.get(0)[0]);
+		assertEquals(this.df1.Fiber(1).values.get(0)[0], this.df2.values.get(0)[0]);
+		assertEquals(this.df1.Fiber(0).domain[0], this.df3.domain[0]);
+		assertEquals(this.df1.Fiber(0).dim, this.df3.dim);
 	}
 	
 	@Test
