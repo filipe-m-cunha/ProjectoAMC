@@ -14,7 +14,8 @@ public class Dataset {
 	int domain[];
 	
 	
-	
+	//Construtor: Inicializa o dataset (vazio ao ínicio), com dimensão (número de variáveis) 0, 
+	//e com domínio nulo;
 	public Dataset() {
 		super();
 		this.dim = 0;
@@ -22,6 +23,8 @@ public class Dataset {
 		this.domain = null;
 	}
 	
+	//Construtor Alternativo: Ler um ficheiro .csv e inserir cada linha uma a uma num dataset
+	//acabado de criar;
 	public Dataset(String file) throws Exception {
 		
 		BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -37,6 +40,14 @@ public class Dataset {
 		}
 		reader.close();
 	}
+	
+	// Função que deve adicionar um vetor ao dataset. O seu funcionamento é como se segue:
+	// -> Recebe um vetor de inteiros (linha a adicionar);
+	// -> Verifica se o dataset já tem algum valor (se não tiver, então a sua dimensão será zero);
+	// -> Se o dataset ainda não tiver valores, então a sua dimensão será o comprimento do vetor de input, 
+	//este é armazenado, e o novo dominion será precisamente o vetor;
+	// -> Se o dataset já tiver valores, confirma se o novo vetor tem o tamanho certo (dim), se não tiver é lançada uma excepção;
+	// -> Se a dimensão estiver certa, o vetor é adicionado à ArrayList dos valores do conjunto de dados.
 	
 	public void Add(int[] vector) throws Exception{
 		if(this.dim == 0 ) {
@@ -59,20 +70,9 @@ public class Dataset {
 		}
 	}
 	
-	public String toStringaux() {
-		String s= "";
-		for (int[] a:values) {
-			s = s+"\n" + Arrays.toString(a);
-		}
-		return s;
-	}
+	//A seguinte função deve receber uma lista de indíces, bem como um vetor de valores,
+	//e deverá retornar o número de vezes que cada um dos valores aparece no indíce respetivo para no dataset.
 	
-	
-	@Override
-	public String toString() {
-		return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
-	}
-
 	public int Count(ArrayList<Integer> indices, ArrayList<Integer> vector) {
 		int count = 0;
 		for(int i = 0; i<values.size(); i++) {
@@ -87,6 +87,9 @@ public class Dataset {
 		return count;
 	}
 	
+	//Recebe um inteiro e retorna a partição do dataset que tem esse valor como classe-objetivo
+	//Deve-se notar que se assume a classe objetivo como sendo a última.
+	
 	public Dataset Fiber(int classe) throws Exception{
 		Dataset fiber = new Dataset();
 		for(int i = 0; i<this.values.size(); i++) {
@@ -96,25 +99,20 @@ public class Dataset {
 		}
 		return fiber;
 	}
-
-	public static void main(String[] args) {
-		try {
-			Dataset df = new Dataset();
-			df.Add(new int[] {1, 2});
-			df.Add(new int[] {2, 3});
-			df.Add(new int[] {2, 3});
-			df.Add(new int[] {7, 8});
-			ArrayList<Integer> testI = new ArrayList<Integer>();
-			ArrayList<Integer> testV = new ArrayList<Integer>();
-			testI.add(0);
-			testI.add(1);
-			testV.add(2);
-			testV.add(3);
-			System.out.println(df.Count(testI, testV));
-	}
-		catch (Exception e) {
-			e.printStackTrace();
-
+	
+	//Função que apenas auxilia a correta visualização do dataset
+		public String toStringaux() {
+			String s= "";
+			for (int[] a:values) {
+				s = s+"\n" + Arrays.toString(a);
+			}
+			return s;
 		}
-	}
+		
+		//Função para visualizar o dataset
+		@Override
+		public String toString() {
+			return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
+		}
+
 }

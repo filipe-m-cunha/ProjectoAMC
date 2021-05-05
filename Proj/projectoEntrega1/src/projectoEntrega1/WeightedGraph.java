@@ -72,12 +72,4 @@ public class WeightedGraph extends Graph{
 			throw new AssertionError("Vertice not in graph");
 		}
 	}
-
-	public int pathCost(ArrayList<Integer> path) {
-		int r = 0;
-		for (int i = 0; i < path.size() - 1; i++) {
-			r += this.getWeight(path.get(i), path.get(i+1));
-		}
-		return r;
-	}
 }

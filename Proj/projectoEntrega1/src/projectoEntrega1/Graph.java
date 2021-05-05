@@ -18,15 +18,6 @@ public class Graph {
 		}
 	}
 
-	public int getDim() {
-		return this.dim;
-	}
-
-	@Override
-	public String toString() {
-		return "Graph [dim=" + dim + ", adj=" + adj + "]";
-	}
-
 	public boolean edgeQ(int o, int d) {
 		if (o >= 0 && o < this.dim && d >= 0 && d < this.dim) {
 			return this.adj.get(o).contains(d);
