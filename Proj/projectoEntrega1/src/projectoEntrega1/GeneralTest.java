@@ -3,8 +3,6 @@ package projectoEntrega1;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 

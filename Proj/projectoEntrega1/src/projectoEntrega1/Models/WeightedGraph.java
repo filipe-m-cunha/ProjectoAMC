@@ -1,7 +1,6 @@
 package projectoEntrega1.Models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 class Edge {
 	int s;

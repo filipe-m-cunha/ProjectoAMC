@@ -2,7 +2,9 @@ package projectoEntrega1.Exceptions;
 
 public class InvalidSizeException extends Exception {
 	
-	 public InvalidSizeException(String errorMessage) {
+	private static final long serialVersionUID = 1L;
+
+	public InvalidSizeException(String errorMessage) {
 	        super(errorMessage);
 	    }
 }

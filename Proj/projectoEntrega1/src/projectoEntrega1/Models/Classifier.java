@@ -1,6 +1,5 @@
 package projectoEntrega1.Models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import projectoEntrega1.Exceptions.InvalidDomainException;
