@@ -51,14 +51,9 @@ public class Dataset {
 	
 	public void Add(int[] vector) throws Exception{
 		if(this.dim == 0) {
+			this.domain = vector.clone();
 			this.values.add(vector);
 			this.dim = vector.length;
-			this.domain = new int[vector.length];
-			for(int i = 0; i<dim; i++) {
-				if(vector[i]>this.domain[i]) {
-					this.domain[i] = vector[i];
-				}
-			}
 		}
 		else{
 			if(vector.length == this.dim) {
@@ -78,12 +73,12 @@ public class Dataset {
 	//A seguinte função deve receber uma lista de indíces, bem como um vetor de valores,
 	//e deverá retornar o número de vezes que cada um dos valores aparece no indíce respetivo para no dataset.
 	
-	public int Count(ArrayList<Integer> indices, ArrayList<Integer> vector) {
+	public int Count(int[] indices, int[] vector) {
 		int count = 0;
 		for(int i = 0; i<values.size(); i++) {
 			boolean found = true;
-			for(int j=0; j<indices.size() && found; j++) {
-				if(vector.get(j) != values.get(i)[indices.get(j)]) {
+			for(int j=0; j<indices.length && found; j++) {
+				if(vector[j] != values.get(i)[indices[j]]) {
 					found = false;
 				}
 			}

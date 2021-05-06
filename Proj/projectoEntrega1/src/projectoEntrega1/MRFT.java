@@ -76,16 +76,10 @@ public class MRFT {
 	//Função auxiliar para calcular o valor de phi(x1, x2), segundo a fórmula apresentada no enunciado.
 	//Note-se que a inicialização das ArrayLists é necessária uma vez que a função Count toma ArrayLists como inputs.
 	public double calcPhi(int i1, int i2, int x1, int x2) {
-		ArrayList<Integer> temp1I = new ArrayList<Integer>();
-		ArrayList<Integer> temp1V = new ArrayList<Integer>();
-		ArrayList<Integer> temp2I = new ArrayList<Integer>();
-		ArrayList<Integer> temp2V = new ArrayList<Integer>();
-		temp1I.add(i1);
-		temp1I.add(i2);
-		temp1V.add(x1);
-		temp1V.add(x2);
-		temp2I.add(i1);
-		temp2V.add(x1);
+		int[] temp1I = {i1, i2};
+		int[] temp1V = {x1, x2};
+		int[] temp2I = {i1};
+		int[] temp2V = {x1};
 		if(i1==this.oSpec && i2==this.dSpec) {
 			return (this.dataset.Count(temp1I, temp1V) + this.delta)/(this.dataset.values.size()*this.dataset.dim + this.delta*this.dataset.domain[i1]*this.dataset.domain[i2]);
 		}
@@ -96,6 +90,7 @@ public class MRFT {
 	
 	//Função que recebe um vetor e retorna a probabilidade de ele se encontrar na MRFT, novamente segundo a fórmula apresentada no enunciado.
 	public double probability(ArrayList<Integer> vector) {
+		
 		double prob = 1;
 		
 		for(int i = 0; i<this.lisEdges.size(); i++) {
