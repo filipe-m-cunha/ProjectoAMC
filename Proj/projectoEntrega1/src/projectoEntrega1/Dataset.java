@@ -6,14 +6,38 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Dataset {
 	
-	int dim;
-	ArrayList<int[]> values;
-	int domain[];
+	private int dim;
+	private List<int[]> values;
+	private int domain[];
 	
-	
+	public int getDim() {
+		return dim;
+	}
+
+	public void setDim(int dim) {
+		this.dim = dim;
+	}
+
+	public List<int[]> getValues() {
+		return values;
+	}
+
+	public void setValues(List<int[]> values) {
+		this.values = values;
+	}
+
+	public int[] getDomain() {
+		return domain;
+	}
+
+	public void setDomain(int[] domain) {
+		this.domain = domain;
+	}
+
 	//Construtor: Inicializa o dataset (vazio ao ínicio), com dimensão (número de variáveis) 0, 
 	//e com domínio nulo;
 	public Dataset() {
@@ -36,7 +60,7 @@ public class Dataset {
 			for(int i = 0; i<sl.length; i++) {
 				a[i] = Integer.parseInt(sl[i]);
 			}
-			Add(a);
+			add(a);
 		}
 		reader.close();
 	}
@@ -49,7 +73,7 @@ public class Dataset {
 	// -> Se o dataset já tiver valores, confirma se o novo vetor tem o tamanho certo (dim), se não tiver é lançada uma excepção;
 	// -> Se a dimensão estiver certa, o vetor é adicionado à ArrayList dos valores do conjunto de dados.
 	
-	public void Add(int[] vector) throws Exception{
+	public void add(int[] vector) throws Exception{
 		if(this.dim == 0) {
 			this.domain = vector.clone();
 			this.values.add(vector);
@@ -73,7 +97,7 @@ public class Dataset {
 	//A seguinte função deve receber uma lista de indíces, bem como um vetor de valores,
 	//e deverá retornar o número de vezes que cada um dos valores aparece no indíce respetivo para no dataset.
 	
-	public int Count(int[] indices, int[] vector) {
+	public int count(int[] indices, int[] vector) {
 		int count = 0;
 		for(int i = 0; i<values.size(); i++) {
 			boolean found = true;
@@ -90,29 +114,29 @@ public class Dataset {
 	//Recebe um inteiro e retorna a partição do dataset que tem esse valor como classe-objetivo
 	//Deve-se notar que se assume a classe objetivo como sendo a última.
 	
-	public Dataset Fiber(int classe) throws Exception{
+	public Dataset fiber(int classe) throws Exception{
 		Dataset fiber = new Dataset();
 		for(int i = 0; i<this.values.size(); i++) {
 			if(this.values.get(i)[this.dim-1] == classe) {
-				fiber.Add(this.values.get(i));
+				fiber.add(this.values.get(i));
 			}
 		}
 		return fiber;
 	}
 	
 	//Função que apenas auxilia a correta visualização do dataset
-		public String toStringaux() {
-			String s= "";
-			for (int[] a:values) {
-				s = s+"\n" + Arrays.toString(a);
-			}
-			return s;
+	public String toStringaux() {
+		String s= "";
+		for (int[] a:values) {
+			s = s+"\n" + Arrays.toString(a);
 		}
+		return s;
+	}
 		
-		//Função para visualizar o dataset
-		@Override
-		public String toString() {
-			return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
-		}
+	//Função para visualizar o dataset
+	@Override
+	public String toString() {
+		return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
+	}
 
 }

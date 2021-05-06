@@ -35,38 +35,38 @@ class GeneralTest {
 	void testAddDatasetTest() throws Exception {
 		this.df1 = new Dataset();
 		this.df2 = new Dataset();
-		this.df1.Add(new int[] {1, 2, 3});
-		this.df1.Add(new int[] {2, 3, 5});
-		this.df1.Add(new int[] {2, 3, 6});
-		this.df1.Add(new int[] {7, 8, 10});
-		assertEquals(this.df1.values.size(), 4);
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		assertEquals(this.df2.values.size(), 1);
+		this.df1.add(new int[] {1, 2, 3});
+		this.df1.add(new int[] {2, 3, 5});
+		this.df1.add(new int[] {2, 3, 6});
+		this.df1.add(new int[] {7, 8, 10});
+		assertEquals(this.df1.getValues().size(), 4);
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		assertEquals(this.df2.getValues().size(), 1);
 	}
 	
 	@Test
 	void countTest() throws Exception {
 		this.df1 = new Dataset();
 		this.df2 = new Dataset();
-		this.df1.Add(new int[] {1, 2, 3});
-		this.df1.Add(new int[] {2, 3, 5});
-		this.df1.Add(new int[] {2, 3, 6});
-		this.df1.Add(new int[] {7, 8, 10});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df1.add(new int[] {1, 2, 3});
+		this.df1.add(new int[] {2, 3, 5});
+		this.df1.add(new int[] {2, 3, 6});
+		this.df1.add(new int[] {7, 8, 10});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		int[] testI1 = {0,1};
 		int[] testV1 = {2,3};
-		assertEquals(this.df1.Count(testI1, testV1), 2);
-		assertEquals(this.df2.Count(testI1, testV1), 0);
+		assertEquals(this.df1.count(testI1, testV1), 2);
+		assertEquals(this.df2.count(testI1, testV1), 0);
 		int[] testI2 = {2};
 		int[] testV2 = {3};
-		assertEquals(this.df1.Count(testI2, testV2), 1);
-		assertEquals(this.df2.Count(testI2, testV2), 4);
+		assertEquals(this.df1.count(testI2, testV2), 1);
+		assertEquals(this.df2.count(testI2, testV2), 4);
 		int[] testI3 = {0,1,2,3,4,5,6,7};
 		int[] testV3 = {1,2,3,4,5,6,7,8};
-		assertEquals(this.df2.Count(testI3, testV3), 4);
+		assertEquals(this.df2.count(testI3, testV3), 4);
 	}
 	
 	@Test
@@ -74,27 +74,27 @@ class GeneralTest {
 		this.df1 = new Dataset();
 		this.df2 = new Dataset();
 		this.df3 = new Dataset();
-		this.df1.Add(new int[] {1, 2, 0});
-		this.df1.Add(new int[] {2, 3, 1});
-		this.df1.Add(new int[] {2, 3, 0});
-		this.df1.Add(new int[] {7, 8, 1});
-		this.df2.Add(new int[] {2, 3, 1});
-		this.df2.Add(new int[] {7, 8, 1});
-		this.df3.Add(new int[] {1, 2, 0});
-		this.df3.Add(new int[] {2, 3, 0});
-		assertEquals(this.df1.Fiber(0).values.get(0)[0], this.df3.values.get(0)[0]);
-		assertEquals(this.df1.Fiber(1).values.get(0)[0], this.df2.values.get(0)[0]);
-		assertEquals(this.df1.Fiber(0).domain[0], this.df3.domain[0]);
-		assertEquals(this.df1.Fiber(0).dim, this.df3.dim);
+		this.df1.add(new int[] {1, 2, 0});
+		this.df1.add(new int[] {2, 3, 1});
+		this.df1.add(new int[] {2, 3, 0});
+		this.df1.add(new int[] {7, 8, 1});
+		this.df2.add(new int[] {2, 3, 1});
+		this.df2.add(new int[] {7, 8, 1});
+		this.df3.add(new int[] {1, 2, 0});
+		this.df3.add(new int[] {2, 3, 0});
+		assertEquals(this.df1.fiber(0).getValues().get(0)[0], this.df3.getValues().get(0)[0]);
+		assertEquals(this.df1.fiber(1).getValues().get(0)[0], this.df2.getValues().get(0)[0]);
+		assertEquals(this.df1.fiber(0).getDomain()[0], this.df3.getDomain()[0]);
+		assertEquals(this.df1.fiber(0).getDim(), this.df3.getDim());
 	}
 	
 	@Test
 	void testMRFT() throws Exception {
 		this.df2 = new Dataset();
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.df2.Add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.g1 = new Graph(8);
 		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {0,4}, {4,0}, {0,5}, {5,0}, {0,7}, {7,0}, {0,6}, {6,0}};
 		for(int[] e : edges) {
@@ -122,7 +122,7 @@ class GeneralTest {
 		System.out.println(this.m1.probability(testV3));
 		System.out.println(this.m1.probability(testV4));
 		System.out.println(this.m1.probability(testV5));
-		System.out.println(this.m1.graph);
+		System.out.println(this.m1.getGraph());
 	}
 
 }
