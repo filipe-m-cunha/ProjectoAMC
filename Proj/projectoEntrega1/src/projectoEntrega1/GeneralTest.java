@@ -1,5 +1,5 @@
 package projectoEntrega1;
-//Github
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -106,10 +106,9 @@ class GeneralTest {
 		int[] testV3 = new int[] {1,2,3,4,5,6,7,8};
 		int[] testV4 = new int[] {1,1,1,1,1,1,1,1};
 		int[] testV5 = new int[] {1,2,2,2,2,2,2,2};
-		System.out.println(this.m1.probability(testV3));
-		System.out.println(this.m1.probability(testV4));
-		System.out.println(this.m1.probability(testV5));
-		System.out.println(this.m1.getGraph());
+		System.out.println(this.m1.prob(testV3));
+		System.out.println(this.m1.prob(testV4));
+		System.out.println(this.m1.prob(testV5));
 	}
 	
 	@Test
@@ -127,8 +126,8 @@ class GeneralTest {
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
 		int[] testV6 = new int[] {2,2,2,2,2,2,2,2};
 		int[] testV7 = new int[] {1};
-		assertThrows(InvalidSizeException.class, () -> {this.m1.probability(testV7);});
-		assertThrows(InvalidDomainException.class, () -> {this.m1.probability(testV6);});
+		assertThrows(InvalidSizeException.class, () -> {this.m1.prob(testV7);});
+		assertThrows(InvalidDomainException.class, () -> {this.m1.prob(testV6);});
 	}
 
 }

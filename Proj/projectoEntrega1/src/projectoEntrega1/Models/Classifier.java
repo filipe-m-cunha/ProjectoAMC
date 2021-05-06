@@ -26,9 +26,9 @@ public class Classifier {
 		int index = 0;
 		double prob = 0;
 		for(int i=0; i<this.mrfts.size(); i++) {
-			if(this.mrfts.get(i).probability(vector)*this.frequence[i] > prob) {
+			if(this.mrfts.get(i).prob(vector)*this.frequence[i] > prob) {
 				index = i;
-				prob = this.mrfts.get(i).probability(vector)*this.frequence[i];
+				prob = this.mrfts.get(i).prob(vector)*this.frequence[i];
 			}
 		}
 		return index;

@@ -9,12 +9,12 @@ import projectoEntrega1.Exceptions.InvalidSizeException;
 
 public class MRFT {
 	
-	//Para maximizar a flexibilidade do algoritmo, para além de se considerar como
+	/*Para maximizar a flexibilidade do algoritmo, para além de se considerar como
 	//variáveis o conjunto de dados e o grafo (árvore) obtida pelo algoritmo de Chow-Liu,
 	//consideraram-se ainda o valor de delta (usado nas pseudo-contagens), bem como a origem
 	//e destino da aresta que induz a orientação da árvore.
 	//Aqui a lista das arestas foi considerada uma variável da MRFT, uma vez que é recorrentemente utilizada,
-	//logo não se justificava o seu cálculo ser realizado no grafo.
+	logo não se justificava o seu cálculo ser realizado no grafo.*/
 	private Dataset dataset;
 	private Graph graph;
 	private int oSpec;
@@ -94,10 +94,10 @@ public class MRFT {
 		int[] temp2I = {i1};
 		int[] temp2V = {x1};
 		if(i1==this.oSpec && i2==this.dSpec) {
-			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.getValues().size()*this.dataset.getDim() + this.delta*this.dataset.getDomain()[i1]*this.dataset.getDomain()[i2]);
+			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.getValues().size() + this.delta*(this.dataset.getDomain()[i1]+1)*(this.dataset.getDomain()[i2] +1));
 		}
 		else {
-			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.count(temp2I, temp2V) + this.delta*this.dataset.getDomain()[i1]);
+			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.count(temp2I, temp2V) + (this.delta*this.dataset.getDomain()[i1]+1));
 		}
 	}
 	
@@ -174,7 +174,7 @@ public class MRFT {
 
 
 	//Função que recebe um vetor e retorna a probabilidade de ele se encontrar na MRFT, novamente segundo a fórmula apresentada no enunciado.
-	public double probability(int[] vector) throws InvalidSizeException, InvalidDomainException {
+	public double prob(int[] vector) throws InvalidSizeException, InvalidDomainException {
 		if(vector.length == this.dataset.getDim()) {
 			boolean inDomain = true;
 			int failedAt = 0;
