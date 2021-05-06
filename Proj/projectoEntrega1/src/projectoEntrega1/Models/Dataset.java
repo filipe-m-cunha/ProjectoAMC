@@ -1,4 +1,4 @@
-package projectoEntrega1;
+package projectoEntrega1.Models;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

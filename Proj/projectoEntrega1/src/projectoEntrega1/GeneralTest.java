@@ -1,14 +1,18 @@
 package projectoEntrega1;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+
+import projectoEntrega1.Exceptions.InvalidDomainException;
+import projectoEntrega1.Exceptions.InvalidSizeException;
+import projectoEntrega1.Models.Dataset;
+import projectoEntrega1.Models.Graph;
+import projectoEntrega1.Models.MRFT;
 
 
 class GeneralTest {
@@ -101,28 +105,32 @@ class GeneralTest {
 			g1.addEdge(e[0], e[1]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
-		ArrayList<Integer> testV3 = new ArrayList<Integer>();
-		ArrayList<Integer> testV4 = new ArrayList<Integer>();
-		ArrayList<Integer> testV5 = new ArrayList<Integer>();
-		testV3.add(1);
-		testV3.add(2);
-		testV3.add(3);
-		testV3.add(4);
-		testV3.add(5);
-		testV3.add(6);
-		testV3.add(7);
-		testV3.add(8);
-		for(int i = 0; i<=7; i++) {
-			testV4.add(1);
-		}
-		testV5.add(1);
-		for(int i = 0; i<7; i++) {
-			testV5.add(2);
-		}
+		int[] testV3 = new int[] {1,2,3,4,5,6,7,8};
+		int[] testV4 = new int[] {1,1,1,1,1,1,1,1};
+		int[] testV5 = new int[] {1,2,2,2,2,2,2,2};
 		System.out.println(this.m1.probability(testV3));
 		System.out.println(this.m1.probability(testV4));
 		System.out.println(this.m1.probability(testV5));
 		System.out.println(this.m1.getGraph());
+	}
+	
+	@Test
+	void testErrorsMRFT() throws Exception {
+		this.df2 = new Dataset();
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		this.g1 = new Graph(8);
+		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {0,4}, {4,0}, {0,5}, {5,0}, {0,7}, {7,0}, {0,6}, {6,0}};
+		for(int[] e : edges) {
+			g1.addEdge(e[0], e[1]);
+		}
+		this.m1 = new MRFT(df2, g1, 0, 0.2);
+		int[] testV6 = new int[] {2,2,2,2,2,2,2,2};
+		int[] testV7 = new int[] {1};
+		assertThrows(InvalidSizeException.class, () -> {this.m1.probability(testV7);});
+		assertThrows(InvalidDomainException.class, () -> {this.m1.probability(testV6);});
 	}
 
 }

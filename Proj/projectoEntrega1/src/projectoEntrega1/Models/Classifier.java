@@ -1,25 +1,29 @@
-package projectoEntrega1;
+package projectoEntrega1.Models;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import projectoEntrega1.Exceptions.InvalidDomainException;
+import projectoEntrega1.Exceptions.InvalidSizeException;
 
 public class Classifier {
 
-	ArrayList<MRFT> mrfts;
+	List<MRFT> mrfts;
 	double[] frequence;
 	
 	
-	public Classifier(ArrayList<MRFT> mrfts, double[] frequence) throws Exception {
+	public Classifier(List<MRFT> mrfts, double[] frequence) throws Exception {
 		super();
 		if(mrfts.size() == frequence.length) {
 			this.mrfts = mrfts;
 			this.frequence = frequence;
 		}
 		else {
-			throw new Exception("Size of classes must match!");
+			throw new InvalidSizeException("Size of classes must match!");
 		}
 	}
 	
-	public int Classify(ArrayList<Integer> vector) {
+	public int Classify(int[] vector) throws InvalidSizeException, InvalidDomainException {
 		int index = 0;
 		double prob = 0;
 		for(int i=0; i<this.mrfts.size(); i++) {

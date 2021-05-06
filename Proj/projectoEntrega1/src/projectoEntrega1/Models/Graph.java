@@ -1,4 +1,4 @@
-package projectoEntrega1;
+package projectoEntrega1.Models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
