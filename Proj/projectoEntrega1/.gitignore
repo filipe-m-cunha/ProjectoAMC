@@ -79,6 +79,13 @@ nb-configuration.xml
 .code-workspace
 
 ##############################
+bin/
+.settings/
+.classpath
+.project
+.gitignore
+
+##############################
 ## OS X
 ##############################
 .DS_Store
