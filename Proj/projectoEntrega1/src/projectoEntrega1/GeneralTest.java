@@ -22,7 +22,7 @@ class GeneralTest {
 	private MRFT m1;
 	
 	@Before
-	void init() {
+	void init() throws InvalidSizeException {
 		this.df1 = new Dataset();
 		this.df2 = new Dataset();
 		this.g1 = new Graph(8);

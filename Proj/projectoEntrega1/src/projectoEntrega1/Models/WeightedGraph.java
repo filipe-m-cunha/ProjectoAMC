@@ -2,56 +2,46 @@ package projectoEntrega1.Models;
 
 import java.util.ArrayList;
 
-class Edge {
-	int s;
-	int d;
-	int w;
-	public Edge(int s, int d, int w) {
-		this.s = s;
-		this.d = d;
-		this.w = w;
-	}
-	@Override
-	public String toString() {
-		return "Edge [s=" + s + ", d=" + d + ", w=" + w + "]";
-	}
-}
+import projectoEntrega1.Exceptions.InvalidSizeException;
 
 public class WeightedGraph extends Graph{
-	ArrayList<ArrayList<Edge>> adj;
+	ArrayList<ArrayList<WeightedEdge>> adj;
 
 	public WeightedGraph(int dim) {
+		
 		super(dim);
-		this.adj = new ArrayList<ArrayList<Edge>>();
-		for (int i = 0; i < this.dim; i++) {
-			this.adj.add(new ArrayList<Edge>());
+		this.adj = new ArrayList<ArrayList<WeightedEdge>>();
+		for (int i = 0; i < this.getDim(); i++) {
+			this.adj.add(new ArrayList<WeightedEdge>());
 		}
 	}
 
-	public boolean edgeQ(int orig, int dest) {
-		if (orig >= 0 && orig < this.dim && dest >= 0 && dest < this.dim) {
-			for (Edge e : this.adj.get(orig)) {
-				if (e.d == dest) {
+	public boolean edgeQ(int o, int d) throws InvalidSizeException {
+		if (o >= 0 && o < this.getDim() && d >= 0 && d < this.getDim()) {
+			for (WeightedEdge e : this.adj.get(o)) {
+				if (e.d == d) {
 					return true;
 				}
 			}
 			return false;
 		} else {
-			throw new AssertionError("Vertice not in graph");
+			throw new InvalidSizeException("Vertice not in graph");
 		}
 	}
 
-	public void addEdge(int orig, int dest, int weig) {
-		if (!this.edgeQ(orig, dest)) {
-			this.adj.get(orig).add(new Edge(orig, dest, weig));
+	public void addEdge(int o, int d, int w) throws InvalidSizeException {
+		if (!this.edgeQ(o, d)) {
+			this.adj.get(o).add(new WeightedEdge(o, d, w));
+			//Se o grafo for direcionado, comentar a linha abaixo.
+			this.adj.get(d).add(new WeightedEdge(d, o, w));
 		}
 	}
 
 
-	public int getWeight(int orig, int dest) {
-		if (this.edgeQ(orig, dest)) {
-			for (Edge e : this.adj.get(orig)) {
-				if (e.d == dest) {
+	public int getWeight(int o, int d) throws InvalidSizeException {
+		if (this.edgeQ(o, d)) {
+			for (WeightedEdge e : this.adj.get(o)) {
+				if (e.d == d) {
 					return e.w;
 				}
 			}
@@ -59,16 +49,15 @@ public class WeightedGraph extends Graph{
 		return 0;
 	}
 
-	public ArrayList<Integer> offspring(int orig){
-		System.out.println("offspring do wg...");
-		if (orig >= 0 && orig < this.dim) {
+	public ArrayList<Integer> offspring(int o) throws InvalidSizeException{
+		if (o >= 0 && o < this.getDim()) {
 			ArrayList<Integer> r = new ArrayList<Integer>();
-			for (Edge e : this.adj.get(orig)) {
+			for (WeightedEdge e : this.adj.get(o)) {
 				r.add(e.d);
 			}
 			return r;
 		} else {
-			throw new AssertionError("Vertice not in graph");
+			throw new InvalidSizeException("Vertice not in graph");
 		}
 	}
 }

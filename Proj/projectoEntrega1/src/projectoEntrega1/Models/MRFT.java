@@ -25,14 +25,13 @@ public class MRFT {
 	
 	//Construtor, dado um dataset, uma árvore, um vértice de origem para a aresta especial e um valor de delta
 	public MRFT(Dataset dataset, Graph tree, int oSpec, double delta) throws InvalidDomainException, InvalidSizeException {
-		super();
 		
-		if(dataset.getDim() == tree.dim) {
-			if(oSpec <= tree.dim ) {
+		if(dataset.getDim() == tree.getDim()) {
+			if(oSpec <= tree.getDim() ) {
 				//Começa por inicializar todas as variáveis da classe, o dataset, origem da aresta especial e o delta
 				//como os valores dados, a lista das arestas como uma lista vazia e o grafo como um grafo vazio.
 				this.dataset = dataset;
-				this.graph = new Graph(tree.dim);
+				this.graph = new Graph(tree.getDim());
 				this.lisEdges = new ArrayList<int[]>();
 				this.oSpec = oSpec;
 				this.delta = delta;
@@ -41,7 +40,7 @@ public class MRFT {
 				//do vértice oSpec, e é construída uma árvore (já garantidamente unidirecional, assumindo que o 
 				//grafo inicial é uma árvore, e então não tem ciclos) seguindo esta pesquisa.
 				Stack<Integer> stack = new Stack<Integer>();
-				boolean[] visited = new boolean[tree.dim];
+				boolean[] visited = new boolean[tree.getDim()];
 				stack.push(oSpec);
 				this.dSpec = tree.offspring(oSpec).get(0);
 				while(! stack.isEmpty()) {

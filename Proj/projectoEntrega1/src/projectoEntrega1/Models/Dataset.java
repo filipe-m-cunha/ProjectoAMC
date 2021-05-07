@@ -39,7 +39,6 @@ public class Dataset {
 	//Construtor: Inicializa o dataset (vazio ao ínicio), com dimensão (número de variáveis) 0, 
 	//e com domínio nulo;
 	public Dataset() {
-		super();
 		this.dim = 0;
 		this.values = new ArrayList<int[]>();
 		this.domain = null;
