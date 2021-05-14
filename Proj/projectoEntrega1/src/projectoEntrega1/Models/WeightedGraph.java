@@ -82,7 +82,7 @@ public class WeightedGraph{
 		}
 	}
 
-	public void addEdge(int o, int d, int w) throws InvalidSizeException {
+	public void addEdge(int o, int d, double w) throws InvalidSizeException {
 		if (!this.edgeQ(o, d)) {
 			this.edgeList.add(new WeightedEdge(o, d, w));
 		}
@@ -94,7 +94,7 @@ public class WeightedGraph{
 		}
 	}
 
-	public int getWeight(int o, int d) throws InvalidSizeException {
+	public double getWeight(int o, int d) throws InvalidSizeException {
 		if (this.edgeQ(o, d)) {
 			for (int i = 0; i<this.edgeList.size(); i++) {
 				if (this.edgeList.get(i).o == o && this.edgeList.get(i).d == d) {
