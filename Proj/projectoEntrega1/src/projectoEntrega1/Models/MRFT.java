@@ -16,7 +16,7 @@ public class MRFT {
 	//Aqui a lista das arestas foi considerada uma variável da MRFT, uma vez que é recorrentemente utilizada,
 	logo não se justificava o seu cálculo ser realizado no grafo.*/
 	private Dataset dataset;
-	private Graph graph;
+	private WeightedGraph graph;
 	private int oSpec;
 	private int dSpec;
 	private double delta;
@@ -24,14 +24,14 @@ public class MRFT {
 	private List<double[][]> phis;
 	
 	//Construtor, dado um dataset, uma árvore, um vértice de origem para a aresta especial e um valor de delta
-	public MRFT(Dataset dataset, Graph tree, int oSpec, double delta) throws InvalidDomainException, InvalidSizeException {
+	public MRFT(Dataset dataset, WeightedGraph tree, int oSpec, double delta) throws InvalidDomainException, InvalidSizeException {
 		
 		if(dataset.getDim() == tree.getDim()) {
 			if(oSpec <= tree.getDim() ) {
 				//Começa por inicializar todas as variáveis da classe, o dataset, origem da aresta especial e o delta
 				//como os valores dados, a lista das arestas como uma lista vazia e o grafo como um grafo vazio.
 				this.dataset = dataset;
-				this.graph = new Graph(tree.getDim());
+				this.graph = new WeightedGraph(tree.getDim());
 				this.lisEdges = new ArrayList<int[]>();
 				this.oSpec = oSpec;
 				this.delta = delta;
@@ -50,7 +50,7 @@ public class MRFT {
 						for(int i:tree.offspring(node)) {
 							stack.push(i);
 							if(!visited[i]) {
-								this.graph.addEdge(node, i);
+								this.graph.addEdge(node, i, 1);
 								this.lisEdges.add(new int[] {node, i});}
 						}
 					}
@@ -112,12 +112,12 @@ public class MRFT {
 	}
 
 
-	public Graph getGraph() {
+	public WeightedGraph getGraph() {
 		return graph;
 	}
 
 
-	public void setGraph(Graph graph) {
+	public void setGraph(WeightedGraph graph) {
 		this.graph = graph;
 	}
 

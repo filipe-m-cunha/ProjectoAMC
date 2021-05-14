@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import projectoEntrega1.Exceptions.InvalidDomainException;
 import projectoEntrega1.Exceptions.InvalidSizeException;
 import projectoEntrega1.Models.Dataset;
-import projectoEntrega1.Models.Graph;
 import projectoEntrega1.Models.MRFT;
+import projectoEntrega1.Models.WeightedGraph;
 
 
 class GeneralTest {
@@ -18,17 +18,17 @@ class GeneralTest {
 	private Dataset df1;
 	private Dataset df2;
 	private Dataset df3;
-	private Graph g1;
+	private WeightedGraph g1;
 	private MRFT m1;
 	
 	@Before
 	void init() throws InvalidSizeException {
 		this.df1 = new Dataset();
 		this.df2 = new Dataset();
-		this.g1 = new Graph(8);
-		int[][] edges = {{0,4}, {0,6}, {1,2}, {2,1}, {2,3}, {2,6}, {2,7}, {3,5}, {4,3}, {4,5}, {5,3}, {6,3}, {6,5}, {7,2}, {7,5}};
+		this.g1 = new WeightedGraph(8);
+		int[][] edges = {{0,4, 1}, {0,6,1}, {1,2, 1}, {2,1, 1}, {2,3, 1}, {2,6, 1}, {2,7, 1}, {3,5, 1}, {4,3, 1}, {4,5, 1}, {5,3, 1}, {6,3, 1}, {6,5, 1}, {7,2, 1}, {7,5, 1}};
 		for(int[] e : edges) {
-			g1.addEdge(e[0], e[1]);
+			g1.addEdge(e[0], e[1], e[2]);
 		}
 	}
 	
@@ -97,10 +97,10 @@ class GeneralTest {
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.g1 = new Graph(8);
-		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {0,4}, {4,0}, {0,5}, {5,0}, {0,7}, {7,0}, {0,6}, {6,0}};
+		this.g1 = new WeightedGraph(8);
+		int[][] edges = {{0,4, 1}, {0,6,1}, {1,2, 1}, {2,1, 1}, {2,3, 1}, {2,6, 1}, {2,7, 1}, {3,5, 1}, {4,3, 1}, {4,5, 1}, {5,3, 1}, {6,3, 1}, {6,5, 1}, {7,2, 1}, {7,5, 1}};
 		for(int[] e : edges) {
-			g1.addEdge(e[0], e[1]);
+			g1.addEdge(e[0], e[1], e[2]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
 		int[] testV3 = new int[] {1,2,3,4,5,6,7,8};
@@ -118,10 +118,10 @@ class GeneralTest {
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
-		this.g1 = new Graph(8);
-		int[][] edges = {{0,1}, {1,0}, {0,2}, {2,0}, {0,3}, {3,0}, {0,4}, {4,0}, {0,5}, {5,0}, {0,7}, {7,0}, {0,6}, {6,0}};
+		this.g1 = new WeightedGraph(8);
+		int[][] edges = {{0,4, 1}, {0,6,1}, {1,2, 1}, {2,1, 1}, {2,3, 1}, {2,6, 1}, {2,7, 1}, {3,5, 1}, {4,3, 1}, {4,5, 1}, {5,3, 1}, {6,3, 1}, {6,5, 1}, {7,2, 1}, {7,5, 1}};
 		for(int[] e : edges) {
-			g1.addEdge(e[0], e[1]);
+			g1.addEdge(e[0], e[1], e[2]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
 		int[] testV6 = new int[] {2,2,2,2,2,2,2,2};
