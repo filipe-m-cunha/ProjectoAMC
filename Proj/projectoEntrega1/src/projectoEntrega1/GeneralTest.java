@@ -135,10 +135,52 @@ class GeneralTest {
 	
 	@Test
 	void testActualData() throws Exception {
-		Dataset data = new Dataset("C:\\Users\\filip\\OneDrive\\Documentos\\IST\\3 Ano\\2 Sem\\AMC\\Projecto\\ProjectoAMC\\Proj\\projectoEntrega1\\src\\projectoEntrega1\\hepatitis.csv");
+		Dataset data = new Dataset("\\hepatitis.csv");
 		Classifier classifier = new Classifier(data, 0.0001);
 		System.out.println(classifier.frequence[0]);
 		System.out.println(classifier.frequence[1]);
 		System.out.println(classifier.getAccuracyBin());
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//C:\\Users\\filip\\OneDrive\\Documentos\\IST\\3 Ano\\2 Sem\\AMC\\Projecto\\ProjectoAMC\\Proj\\projectoEntrega1\\src\\projectoEntrega1\\hepatitis.csv");
