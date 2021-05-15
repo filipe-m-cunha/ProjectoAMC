@@ -47,11 +47,12 @@ public class Dataset {
 	//Construtor Alternativo: Ler um ficheiro .csv e inserir cada linha uma a uma num dataset
 	//acabado de criar;
 	public Dataset(String file) throws Exception {
-		
+		this.dim = 0;
+		this.values = new ArrayList<int[]>();
+		this.domain = null;
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		while((line=reader.readLine())!= null) {
-			System.out.println(line);
 			String [] sl = line.split(",");
 			int a[] = new int[sl.length];
 			for(int i = 0; i<sl.length; i++) {
@@ -118,6 +119,7 @@ public class Dataset {
 				fiber.add(this.values.get(i));
 			}
 		}
+		//fiber.setDomain(this.domain.clone());
 		return fiber;
 	}
 	
@@ -139,17 +141,33 @@ public class Dataset {
 	public ArrayList<Dataset> datasetInicialization() throws Exception{
 		ArrayList<Dataset> res = new ArrayList<Dataset>();
 		for(int i = 0; i<=this.domain[this.dim-1]; i++) {
-			Dataset tempData = this.fiber(i);
-			tempData.setDomain(this.domain.clone());
-			res.add(tempData);
+			Dataset data = this.fiber(i);
+			Dataset X = new Dataset();
+			for(int[] j:data.getValues()) {
+				int[] tempVec = new int[j.length-1];
+				for(int k=0; k<j.length-1; k++) {
+					int val = j[k];
+					tempVec[k] = val;
+				}
+				X.add(tempVec);
+			}
+			int[] dom = new int[this.domain.length - 1];
+			for(int j = 0; j<this.domain.length -1; j++) {
+				int val = this.domain[j];
+				dom[j] = val;
+			}
+			X.setDomain(dom);
+			res.add(X);
 		}
 		return res;
 	}
 	
 	public double[] getFrequencies() {
-		double[] frequencies = new double[this.domain[this.dim - 1]];
+		double[] frequencies = new double[this.domain[this.dim - 1]+1];
+		double size = (double) this.values.size();
 		for(int i = 0; i<=this.domain[this.dim - 1]; i++) {
-			frequencies[i] = this.count(new int [] {this.dim -1},new int[] {i})/this.values.size();
+			double dom = (double) this.count(new int [] {this.dim -1},new int[] {i});
+			frequencies[i] = dom/size;
 		}
 		return frequencies;
 	}

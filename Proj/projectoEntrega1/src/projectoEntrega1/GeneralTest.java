@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import projectoEntrega1.Exceptions.InvalidDomainException;
 import projectoEntrega1.Exceptions.InvalidSizeException;
+import projectoEntrega1.Models.Classifier;
 import projectoEntrega1.Models.Dataset;
 import projectoEntrega1.Models.MRFT;
 import projectoEntrega1.Models.WeightedGraph;
@@ -97,18 +98,19 @@ class GeneralTest {
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
 		this.df2.add(new int[] {1, 2, 3, 4, 5, 6, 7, 8});
+		//System.out.println(this.df2.getDim());
 		this.g1 = new WeightedGraph(8);
 		int[][] edges = {{0,4, 1}, {0,6,1}, {1,2, 1}, {2,1, 1}, {2,3, 1}, {2,6, 1}, {2,7, 1}, {3,5, 1}, {4,3, 1}, {4,5, 1}, {5,3, 1}, {6,3, 1}, {6,5, 1}, {7,2, 1}, {7,5, 1}};
 		for(int[] e : edges) {
 			g1.addEdge(e[0], e[1], e[2]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
-		int[] testV3 = new int[] {1,2,3,4,5,6,7,8};
-		int[] testV4 = new int[] {1,1,1,1,1,1,1,1};
-		int[] testV5 = new int[] {1,2,2,2,2,2,2,2};
-		System.out.println(this.m1.prob(testV3));
-		System.out.println(this.m1.prob(testV4));
-		System.out.println(this.m1.prob(testV5));
+		int[] testV3 = new int[] {1,2,3,4,5,6,7, 8};
+		int[] testV4 = new int[] {1,1,1,1,1,1,1, 1};
+		int[] testV5 = new int[] {1,2,2,2,2,2,2, 2};
+		//System.out.println(this.m1.prob(testV3));
+		//System.out.println(this.m1.prob(testV4));
+		//System.out.println(this.m1.prob(testV5));
 	}
 	
 	@Test
@@ -130,4 +132,13 @@ class GeneralTest {
 		assertThrows(InvalidDomainException.class, () -> {this.m1.prob(testV6);});
 	}
 
+	
+	@Test
+	void testActualData() throws Exception {
+		Dataset data = new Dataset("C:\\Users\\filip\\OneDrive\\Documentos\\IST\\3 Ano\\2 Sem\\AMC\\Projecto\\ProjectoAMC\\Proj\\projectoEntrega1\\src\\projectoEntrega1\\hepatitis.csv");
+		Classifier classifier = new Classifier(data, 0.0001);
+		System.out.println(classifier.frequence[0]);
+		System.out.println(classifier.frequence[1]);
+		System.out.println(classifier.getAccuracyBin());
+	}
 }

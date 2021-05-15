@@ -36,6 +36,9 @@ public class ChowLiu {
 		ArrayList<WeightedEdge> mst = new ArrayList<WeightedEdge>();
 		this.graph.MST(mst);
 		this.graph.setEdgeList(mst);
+		/*for(int i = 0; i<mst.size(); i++) {
+			System.out.println(mst.get(i).d +  ' ' + mst.get(i).d + ' ' + mst.get(i).w );
+		}*/
 	}
 	
 	public double mutualInformation(int i, int j, Dataset data) {
