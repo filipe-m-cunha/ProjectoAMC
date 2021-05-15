@@ -1,27 +1,28 @@
 package projectoEntrega1.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import projectoEntrega1.Exceptions.InvalidDomainException;
 import projectoEntrega1.Exceptions.InvalidSizeException;
 
 public class Classifier {
-
-	List<MRFT> mrfts;
+	
 	double[] frequence;
+	ArrayList<MRFT> mrfts;
 	
 	/*Inicializa um objecto classifier, com uma lista de MRFT's e um array de frequênicias.
 	*Confirma que os tamanhos dos dois arrays coincidem (deve haver um MRFT para cada classe, 
 	e uma frequência para cada classe)*/
-	public Classifier(List<MRFT> mrfts, double[] frequence) throws Exception {
-		
-		if(mrfts.size() == frequence.length) {
-			this.mrfts = mrfts;
-			this.frequence = frequence;
+	public Classifier(Dataset data) throws Exception {
+		this.frequence = data.getFrequencies();
+		ArrayList<Dataset> datasets = data.datasetInicialization();
+		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
+		for(Dataset d:datasets) {
+			ChowLiu cLiu = new ChowLiu(d);
+			mrfts.add(new MRFT(cLiu.getData(), cLiu.getGraph(), 0, 0.2));
 		}
-		else {
-			throw new InvalidSizeException("Size of classes must match!");
-		}
+		this.mrfts = mrfts;
 	}
 	
 	/*Classifica um dado vetor de inteiros, devolvendo a sua classe mais provável, com base nos

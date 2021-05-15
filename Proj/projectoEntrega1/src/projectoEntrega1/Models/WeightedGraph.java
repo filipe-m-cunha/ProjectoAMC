@@ -133,7 +133,7 @@ public class WeightedGraph{
 			this.parents.add(i, i);
 			this.rank.add(i, 0);
 		}
-		this.edgeList.sort((WeightedEdge o, WeightedEdge d) -> d.w - o.w);
+		this.edgeList.sort((WeightedEdge o, WeightedEdge d) -> Double.compare(d.w, o.w));
 		for(WeightedEdge e: this.getEdgeList()) {
 			int root1 = getParent(e.o);
 			int root2 = getParent(e.d);

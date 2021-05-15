@@ -9,12 +9,20 @@ public class ChowLiu {
 	private Dataset data;
 	private WeightedGraph graph;
 	
-	public ArrayList<Dataset> datasetInicialization(Dataset data) throws Exception{
-		ArrayList<Dataset> res = new ArrayList<Dataset>();
-		for(int i = 0; i<=data.getDomain()[data.getDim()-1]; i++) {
-			res.add(data.fiber(i));
-		}
-		return res;
+	public Dataset getData() {
+		return data;
+	}
+
+	public void setData(Dataset data) {
+		this.data = data;
+	}
+
+	public WeightedGraph getGraph() {
+		return graph;
+	}
+
+	public void setGraph(WeightedGraph graph) {
+		this.graph = graph;
 	}
 	
 	public ChowLiu(Dataset data) throws InvalidSizeException {

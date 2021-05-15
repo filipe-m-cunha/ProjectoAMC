@@ -135,5 +135,23 @@ public class Dataset {
 	public String toString() {
 		return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
 	}
+	
+	public ArrayList<Dataset> datasetInicialization() throws Exception{
+		ArrayList<Dataset> res = new ArrayList<Dataset>();
+		for(int i = 0; i<=this.domain[this.dim-1]; i++) {
+			Dataset tempData = this.fiber(i);
+			tempData.setDomain(this.domain.clone());
+			res.add(tempData);
+		}
+		return res;
+	}
+	
+	public double[] getFrequencies() {
+		double[] frequencies = new double[this.domain[this.dim - 1]];
+		for(int i = 0; i<=this.domain[this.dim - 1]; i++) {
+			frequencies[i] = this.count(new int [] {this.dim -1},new int[] {i})/this.values.size();
+		}
+		return frequencies;
+	}
 
 }
