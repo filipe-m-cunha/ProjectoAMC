@@ -28,6 +28,18 @@ public class Classifier {
 		this.mrfts = mrfts;
 	}
 	
+	public Classifier(Dataset data, int o, double delta) throws Exception {
+		this.data = data;
+		this.frequence = data.getFrequencies();
+		ArrayList<Dataset> datasets = data.datasetInicialization();
+		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
+		for(Dataset d:datasets) {
+			ChowLiu cLiu = new ChowLiu(d);
+			mrfts.add(new MRFT(cLiu.getData(), cLiu.getGraph(), o, delta));
+		}
+		this.mrfts = mrfts;
+	}
+	
 	/*Classifica um dado vetor de inteiros, devolvendo a sua classe mais provável, com base nos
 	 * MRFT's do classificador. Calcula a probabilidade do vetor em cada MRFT do array, verfica
 	 * que MRFT é que maximiza este valor e devolve o seu índice.
