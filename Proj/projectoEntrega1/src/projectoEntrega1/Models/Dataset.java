@@ -138,25 +138,24 @@ public class Dataset {
 		return "Dataset [dim=" + dim + ", values=" + toStringaux() + ", domain=" + Arrays.toString(domain) + "]";
 	}
 	
+	public int[] removeLast(int[] vec) {
+		int[] vecCopy = vec.clone();
+		int[] res = new int[vecCopy.length-1];
+		for(int i=0; i<vecCopy.length-1; i++) {
+			res[i] = vecCopy[i];
+		}
+		return res;
+	}
+	
 	public ArrayList<Dataset> datasetInicialization() throws Exception{
 		ArrayList<Dataset> res = new ArrayList<Dataset>();
 		for(int i = 0; i<=this.domain[this.dim-1]; i++) {
 			Dataset data = this.fiber(i);
 			Dataset X = new Dataset();
 			for(int[] j:data.getValues()) {
-				int[] tempVec = new int[j.length-1];
-				for(int k=0; k<j.length-1; k++) {
-					int val = j[k];
-					tempVec[k] = val;
-				}
-				X.add(tempVec);
+				X.add(this.removeLast(j));
 			}
-			int[] dom = new int[this.domain.length - 1];
-			for(int j = 0; j<this.domain.length -1; j++) {
-				int val = this.domain[j];
-				dom[j] = val;
-			}
-			X.setDomain(dom);
+			X.setDomain(this.removeLast(this.domain));
 			res.add(X);
 		}
 		return res;

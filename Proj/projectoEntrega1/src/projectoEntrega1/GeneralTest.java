@@ -108,9 +108,6 @@ class GeneralTest {
 		int[] testV3 = new int[] {1,2,3,4,5,6,7, 8};
 		int[] testV4 = new int[] {1,1,1,1,1,1,1, 1};
 		int[] testV5 = new int[] {1,2,2,2,2,2,2, 2};
-		//System.out.println(this.m1.prob(testV3));
-		//System.out.println(this.m1.prob(testV4));
-		//System.out.println(this.m1.prob(testV5));
 	}
 	
 	@Test
@@ -135,52 +132,10 @@ class GeneralTest {
 	
 	@Test
 	void testActualData() throws Exception {
-		Dataset data = new Dataset("\\hepatitis.csv");
-		Classifier classifier = new Classifier(data, 0.0001);
+		Dataset data = new Dataset("C:\\\\Users\\\\filip\\\\OneDrive\\\\Documentos\\\\IST\\\\3 Ano\\\\2 Sem\\\\AMC\\\\Projecto\\\\ProjectoAMC\\\\Proj\\\\projectoEntrega1\\\\src\\\\projectoEntrega1\\\\bcancer.csv");
+		Classifier classifier = new Classifier(data, 0.001);
 		System.out.println(classifier.frequence[0]);
 		System.out.println(classifier.frequence[1]);
-		System.out.println(classifier.getAccuracyBin());
+		classifier.getAccuracyBin();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//C:\\Users\\filip\\OneDrive\\Documentos\\IST\\3 Ano\\2 Sem\\AMC\\Projecto\\ProjectoAMC\\Proj\\projectoEntrega1\\src\\projectoEntrega1\\hepatitis.csv");

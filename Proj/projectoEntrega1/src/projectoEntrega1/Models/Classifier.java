@@ -44,17 +44,13 @@ public class Classifier {
 		return index;
 	}
 	
-	public double getAccuracyBin() throws InvalidSizeException, InvalidDomainException {
+	public void getAccuracyBin() throws InvalidSizeException, InvalidDomainException {
 		double TP = 0;
 		double TN = 0;
 		double FP = 0;
 		double FN = 0;
 		for(int[] i:this.data.getValues()) {
-			int[] val = new int[this.data.getDim()-1];
-			for(int j=0; j<this.data.getDim()-1; j++) {
-				val[j] = i[j];
-			}
-			int pred = this.Classify(val);
+			int pred = this.Classify(this.data.removeLast(i));
 			int real = i[this.data.getDim()-1];
 			if(pred == 1) {
 				if(real == 1) {
@@ -74,6 +70,11 @@ public class Classifier {
 				}
 			}
 		}
-		return (TP + TN)/(TP + TN + FP + FN);
+		double accuracy = (TP + TN)/(TP + TN + FP + FN);
+		double TPR = (TP)/(TP+FN);
+		double TNR = (TN)/(TN + FP);
+		double pt = (Math.sqrt(TPR*(-TNR+1)) + TNR -1)/(TPR + TNR - 1);
+		double F1 = 2*TP/(2*TP + FP + FN);
+		System.out.println("Accuracy: " + accuracy + " Recall: " + TPR + "Prevalence Threshold: " + pt + " F1 Score: " + F1);
 	}
 }
