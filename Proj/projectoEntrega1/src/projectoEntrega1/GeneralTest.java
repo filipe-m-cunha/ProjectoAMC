@@ -136,10 +136,10 @@ class GeneralTest {
 		for(int i=0; i<1; i++) {
 			double[] deltas = new double[] {0, 0.000001, 0.00005, 0.00001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.5, 0.75, 1, 2, 3, 4, 5, 10};
 			for(double j:deltas) {
-				Classifier classifier = new Classifier(data, i, j);
-				System.out.println(classifier.frequence[0]);
-				System.out.println(classifier.frequence[1]);
-				classifier.getAccuracyBin();
+			Classifier classifier = new Classifier(data, i, j);
+			System.out.println(classifier.frequence[0]);
+			System.out.println(classifier.frequence[1]);
+			classifier.getAccuracyBin();
 			}
 		}
 	}

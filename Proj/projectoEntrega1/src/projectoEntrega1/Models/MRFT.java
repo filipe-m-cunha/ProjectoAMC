@@ -190,7 +190,6 @@ public class MRFT {
 				for(int i = 0; i<this.lisEdges.size(); i++) {
 					prob = prob*(this.phis.get(i)[vector[this.lisEdges.get(i)[0]]][vector[this.lisEdges.get(i)[1]]]);
 				}
-				//System.out.println(vector);
 				return prob;
 			}
 			else {
@@ -199,8 +198,6 @@ public class MRFT {
 		} else {
 			throw new InvalidSizeException("Vector size must be the same as the dataset dimension!");
 		}
-		//}catch(Exception e) {e.printStackTrace();}
-		//return 0;
 	}
 	
 }

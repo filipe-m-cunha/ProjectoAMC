@@ -44,7 +44,7 @@ public class Classifier {
 	 * MRFT's do classificador. Calcula a probabilidade do vetor em cada MRFT do array, verfica
 	 * que MRFT é que maximiza este valor e devolve o seu índice.
 	 */
-	public int Classify(int[] vector) throws InvalidSizeException, InvalidDomainException {
+	public int classify(int[] vector) throws InvalidSizeException, InvalidDomainException {
 		int index = 0;
 		double prob = 0;
 		for(int i=0; i<this.mrfts.size(); i++) {
@@ -62,7 +62,7 @@ public class Classifier {
 		double FP = 0;
 		double FN = 0;
 		for(int[] i:this.data.getValues()) {
-			int pred = this.Classify(this.data.removeLast(i));
+			int pred = this.classify(this.data.removeLast(i));
 			int real = i[this.data.getDim()-1];
 			if(pred == 1) {
 				if(real == 1) {
