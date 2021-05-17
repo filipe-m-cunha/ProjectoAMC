@@ -146,8 +146,6 @@ public class WeightedGraph{
 				else {
 					this.parents.set(root1, root2);
 					this.rank.set(root2, rank.get(root2)+1);
-					
-
 				}
 			}
 		}
