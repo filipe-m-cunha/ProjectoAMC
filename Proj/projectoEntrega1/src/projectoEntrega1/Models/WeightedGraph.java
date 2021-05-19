@@ -1,12 +1,17 @@
 package projectoEntrega1.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import projectoEntrega1.Exceptions.InvalidSizeException;
 
-public class WeightedGraph{
+public class WeightedGraph implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int dim;
 	private List<WeightedEdge> edgeList;
 	private List<Integer> parents;

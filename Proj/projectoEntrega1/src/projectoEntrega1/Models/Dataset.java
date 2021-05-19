@@ -2,12 +2,17 @@ package projectoEntrega1.Models;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Dataset {
+public class Dataset implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int dim;
 	private List<int[]> values;
 	private int domain[];
@@ -116,10 +121,10 @@ public class Dataset {
 		Dataset fiber = new Dataset();
 		for(int i = 0; i<this.values.size(); i++) {
 			if(this.values.get(i)[this.dim-1] == classe) {
-				fiber.add(this.values.get(i));
+				fiber.add(removeLast(this.values.get(i)).clone());
 			}
 		}
-		//fiber.setDomain(this.domain.clone());
+		fiber.setDomain(removeLast(this.domain.clone()));
 		return fiber;
 	}
 	
@@ -150,13 +155,7 @@ public class Dataset {
 	public ArrayList<Dataset> datasetInicialization() throws Exception{
 		ArrayList<Dataset> res = new ArrayList<Dataset>();
 		for(int i = 0; i<=this.domain[this.dim-1]; i++) {
-			Dataset data = this.fiber(i);
-			Dataset X = new Dataset();
-			for(int[] j:data.getValues()) {
-				X.add(this.removeLast(j));
-			}
-			X.setDomain(this.removeLast(this.domain));
-			res.add(X);
+			res.add(this.fiber(i));
 		}
 		return res;
 	}

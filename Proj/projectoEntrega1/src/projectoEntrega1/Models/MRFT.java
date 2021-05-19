@@ -1,5 +1,6 @@
 package projectoEntrega1.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -7,8 +8,12 @@ import java.util.Stack;
 import projectoEntrega1.Exceptions.InvalidDomainException;
 import projectoEntrega1.Exceptions.InvalidSizeException;
 
-public class MRFT {
+public class MRFT implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*Para maximizar a flexibilidade do algoritmo, para além de se considerar como
 	//variáveis o conjunto de dados e o grafo (árvore) obtida pelo algoritmo de Chow-Liu,
 	//consideraram-se ainda o valor de delta (usado nas pseudo-contagens), bem como a origem
@@ -43,7 +48,7 @@ public class MRFT {
 				boolean[] visited = new boolean[tree.getDim()];
 				stack.push(oSpec);
 				this.dSpec = tree.offspring(oSpec).get(0);
-				while(! stack.isEmpty()) {
+				while(!stack.isEmpty()) {
 					int node = stack.pop();
 					if(!visited[node]) {
 						visited[node] = true;
@@ -96,7 +101,7 @@ public class MRFT {
 			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.getValues().size() + this.delta*(this.dataset.getDomain()[i1]+1)*(this.dataset.getDomain()[i2] +1));
 		}
 		else {
-			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.count(temp2I, temp2V) + (this.delta*this.dataset.getDomain()[i1]+1));
+			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.count(temp2I, temp2V) + this.delta*(this.dataset.getDomain()[i2]+1));
 		}
 	}
 	
@@ -190,6 +195,7 @@ public class MRFT {
 				for(int i = 0; i<this.lisEdges.size(); i++) {
 					prob = prob*(this.phis.get(i)[vector[this.lisEdges.get(i)[0]]][vector[this.lisEdges.get(i)[1]]]);
 				}
+				
 				return prob;
 			}
 			else {

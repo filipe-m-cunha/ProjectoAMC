@@ -1,6 +1,12 @@
 package projectoEntrega1.Models;
 
-public class WeightedEdge {
+import java.io.Serializable;
+
+public class WeightedEdge implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int o;
 	int d;
 	double w;
