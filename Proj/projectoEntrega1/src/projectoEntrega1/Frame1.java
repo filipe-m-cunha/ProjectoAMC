@@ -37,6 +37,7 @@ public class Frame1 extends JFrame {
 	public JLabel lblNewLabel;
 	public JTextField txtInserirValores;
 	public JButton btnNewButton_1;
+	public JButton btnNewButton_2;
 
 	/**
 	 * Launch the application.
@@ -87,21 +88,22 @@ public class Frame1 extends JFrame {
 					double[] res = classifier.getAccuracyBin();
 					lblNewLabel.setForeground(Color.BLACK);
 					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-					String txt = "<html> Accuracy: " + String.valueOf(res[0]) + "<br> Recall: " +  String.valueOf(res[1]) + "<br> Performance Threshold: " + String.valueOf(res[2]) + "<br> F1-Score: " + String.valueOf(res[3]);
+					String txt = "<html> Accuracy: " + String.valueOf(res[0]) + "<br> Recall: " +  String.valueOf(res[1]) + "<br> Performance Threshold: " + String.valueOf(res[2]) + "<br> F1-Score: " + String.valueOf(res[3]) + "<br> Nota: Carregar em voltar atrás irá apagar permanentemente os pesos. <br> Após carregar no botão será necessário treinar novamente o modelo.";
 					lblNewLabel.setText(txt);
 					btnNewButton.setVisible(false);
 					txtInserirNomeou.setVisible(false);
 					rdbtnNewRadioButton.setVisible(false);
 					btnNewButton_1.setVisible(true);
 					txtInserirValores.setVisible(true);
+					btnNewButton_2.setVisible(true);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
-					lblNewLabel.setText("Ficheiro não encontrado: Certifique-se que o filepath se encontra correto.");
+					lblNewLabel.setText("<html> Ficheiro não encontrado: <br> Certifique-se que o filepath se encontra correto.");
 					lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 					lblNewLabel.setForeground(Color.RED);
 				} catch (Exception e2) {
 					e2.printStackTrace();
-					lblNewLabel.setText("Ocorreu um erro não identificado, por favor tente outra vez.");
+					lblNewLabel.setText("<html> Ocorreu um erro não identificado. <br> Por favor tente outra vez.");
 					lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 					lblNewLabel.setForeground(Color.RED);
 				}}
@@ -209,6 +211,29 @@ public class Frame1 extends JFrame {
 		txtInserirValores.setBounds(205, 197, 496, 102);
 		panel.add(txtInserirValores);
 		txtInserirValores.setColumns(10);
+		
+		JButton btnNewButton_2 = new JButton("Voltar Atr\u00E1s");
+		this.btnNewButton_2 = btnNewButton_2;
+		btnNewButton_2.setBounds(621, 369, 152, 27);
+		btnNewButton_2.setVisible(false);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = txtInserirNomeou.getText().substring(0, txtInserirNomeou.getText().length()-4);
+				name = name + ".txt";
+				File file = new File(name);
+				file.delete();
+				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				lblNewLabel.setForeground(Color.BLACK);
+				btnNewButton_2.setVisible(false);
+				btnNewButton_1.setVisible(false);
+				txtInserirValores.setVisible(false);
+				btnNewButton.setVisible(true);
+				txtInserirNomeou.setVisible(true);
+				rdbtnNewRadioButton.setVisible(true);
+				txtInserirNomeou.setText("Inserir filepath do ficheiro a analisar.");
+				lblNewLabel.setText("<html> Esta ferramenta de diagn\u00F3stico r\u00E1pido n\u00E3o dever\u00E1, de forma alguma, <br> substituir uma consulta m\u00E9dica e deve apenas ser utilizada de forma recreativa. <br> Selecione o botão \"guardar pesos\" no caso de pretender usar o modelo para classificação.");
+		}});
+		panel.add(btnNewButton_2);
 		
 	}
 }
