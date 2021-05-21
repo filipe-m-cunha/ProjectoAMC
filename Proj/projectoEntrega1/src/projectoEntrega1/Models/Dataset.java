@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import projectoEntrega1.Exceptions.InvalidSizeException;
+
 public class Dataset implements Serializable {
 	
 	/**
@@ -92,7 +94,7 @@ public class Dataset implements Serializable {
 				}
 			}
 			else {
-				throw new Exception("vector size does not match dataset size");
+				throw new InvalidSizeException("vector size does not match dataset size");
 			}
 		}
 	}

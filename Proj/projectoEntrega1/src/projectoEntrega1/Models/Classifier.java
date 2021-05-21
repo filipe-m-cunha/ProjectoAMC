@@ -17,16 +17,16 @@ public class Classifier implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int[] domain;
 	public double[] frequence;
 	public ArrayList<MRFT> mrfts;
-	public Dataset data;
 	
 	/*Inicializa um objecto classifier, com uma lista de MRFT's e um array de frequênicias.
 	*Confirma que os tamanhos dos dois arrays coincidem (deve haver um MRFT para cada classe, 
 	e uma frequência para cada classe)*/
 	public Classifier(Dataset data, double delta, boolean save) throws Exception {
-		this.data = data;
 		this.frequence = data.getFrequencies();
+		this.domain = data.getDomain().clone();
 		ArrayList<Dataset> datasets = data.datasetInicialization();
 		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
 		for(Dataset d:datasets) {
@@ -45,9 +45,10 @@ public class Classifier implements Serializable {
 	}
 	
 	public Classifier(String dataFilePath, double delta, boolean save) throws Exception {
-		this.data = new Dataset(dataFilePath);
+		Dataset data = new Dataset(dataFilePath);
+		this.domain = data.getDomain().clone();
 		this.frequence = data.getFrequencies();
-		ArrayList<Dataset> datasets = this.data.datasetInicialization();
+		ArrayList<Dataset> datasets = data.datasetInicialization();
 		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
 		for(Dataset d:datasets) {
 			ChowLiu cLiu = new ChowLiu(d);
@@ -56,6 +57,7 @@ public class Classifier implements Serializable {
 		this.mrfts = mrfts;
 		if(save) {
 			String name = dataFilePath.substring(0, dataFilePath.length() - 4) + ".txt";
+			System.out.println(name);
 			FileOutputStream f = new FileOutputStream(new File(name));
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(this);
@@ -72,22 +74,22 @@ public class Classifier implements Serializable {
 		int index = 0;
 		double prob = 0;
 		for(int i=0; i<this.mrfts.size(); i++) {
-			if(this.mrfts.get(i).prob(vector)*this.frequence[i] > prob) {
+			if(this.mrfts.get(i).prob(this.domain, vector)*this.frequence[i] > prob) {
 				index = i;
-				prob = this.mrfts.get(i).prob(vector)*this.frequence[i];
+				prob = this.mrfts.get(i).prob(this.domain, vector)*this.frequence[i];
 			}
 		}
 		return index;
 	}
 	
-	public double[] getAccuracyBin() throws InvalidSizeException, InvalidDomainException {
+	public double[] getAccuracyBin(Dataset data) throws InvalidSizeException, InvalidDomainException {
 		double TP = 0;
 		double TN = 0;
 		double FP = 0;
 		double FN = 0;
-		for(int[] i:this.data.getValues()) {
-			int pred = this.classify(this.data.removeLast(i));
-			int real = i[this.data.getDim()-1];
+		for(int[] i:data.getValues()) {
+			int pred = this.classify(data.removeLast(i));
+			int real = i[data.getDim()-1];
 			if(pred == 1) {
 				if(real == 1) {
 					TP += 1;

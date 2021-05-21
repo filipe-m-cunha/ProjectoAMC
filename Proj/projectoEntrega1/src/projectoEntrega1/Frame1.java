@@ -11,6 +11,7 @@ import projectoEntrega1.Exceptions.FileNotCSVException;
 import projectoEntrega1.Exceptions.InvalidDomainException;
 import projectoEntrega1.Exceptions.InvalidSizeException;
 import projectoEntrega1.Models.Classifier;
+import projectoEntrega1.Models.Dataset;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -85,7 +86,7 @@ public class Frame1 extends JFrame {
 				else {
 				try {
 					Classifier classifier = new Classifier(name, 0.01, rdbtnNewRadioButton.isSelected());
-					double[] res = classifier.getAccuracyBin();
+					double[] res = classifier.getAccuracyBin(new Dataset(name));
 					lblNewLabel.setForeground(Color.BLACK);
 					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 					String txt = "<html> Accuracy: " + String.valueOf(res[0]) + "<br> Recall: " +  String.valueOf(res[1]) + "<br> Performance Threshold: " + String.valueOf(res[2]) + "<br> F1-Score: " + String.valueOf(res[3]) + "<br> Nota: Carregar em voltar atrás irá apagar permanentemente os pesos. <br> Após carregar no botão será necessário treinar novamente o modelo.";
@@ -153,18 +154,17 @@ public class Frame1 extends JFrame {
 		btnNewButton_1.setBounds(329, 355, 250, 50);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sl = txtInserirValores.getText();
-				int a[] = new int[sl.length()/2+1];
-				for(int i = 0; i<sl.length()/2+1; i=i+2) {
-				    char result = sl.charAt(i);
-				    int res = Integer.valueOf(result);
-					a[i] = res - 48;
+				String s = txtInserirValores.getText();
+				String [] sl = s.split(",");
+				int a[] = new int[sl.length];
+				for(int i = 0; i<sl.length; i++) {
+					a[i] = Integer.parseInt(sl[i]);
+					System.out.println(a[i]);
 				}
 				String name = txtInserirNomeou.getText().substring(0, txtInserirNomeou.getText().length()-4);
 				name = name + ".txt";
-				FileInputStream f;
 				try {
-					f = new FileInputStream(new File(name));
+					FileInputStream f = new FileInputStream(new File(name));
 					ObjectInputStream o = new ObjectInputStream(f);
 					Classifier classifier = (Classifier) o.readObject();
 					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -190,12 +190,6 @@ public class Frame1 extends JFrame {
 					lblNewLabel.setText("<html> Os dados inseridos não podem ser avaliados. <br>  Razão: Uma das variáveis não se encontra no domínio pretendido.");
 					lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 					lblNewLabel.setForeground(Color.RED);
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
 					lblNewLabel.setText(e1.getMessage());
 					e1.printStackTrace();
 				}
@@ -232,7 +226,7 @@ public class Frame1 extends JFrame {
 				rdbtnNewRadioButton.setVisible(true);
 				txtInserirNomeou.setText("Inserir filepath do ficheiro a analisar.");
 				lblNewLabel.setText("<html> Esta ferramenta de diagn\u00F3stico r\u00E1pido n\u00E3o dever\u00E1, de forma alguma, <br> substituir uma consulta m\u00E9dica e deve apenas ser utilizada de forma recreativa. <br> Selecione o botão \"guardar pesos\" no caso de pretender usar o modelo para classificação.");
-		}});
+			}});
 		panel.add(btnNewButton_2);
 		
 	}

@@ -128,10 +128,10 @@ class GeneralTest {
 			g1.addEdge(e[0], e[1], e[2]);
 		}
 		this.m1 = new MRFT(df2, g1, 0, 0.2);
-		int[] testV6 = new int[] {2,2,2,2,2,2,2,2};
+		int[] testV6 = new int[] {2,2,2,2,2,2,2};
 		int[] testV7 = new int[] {1};
-		assertThrows(InvalidSizeException.class, () -> {this.m1.prob(testV7);});
-		assertThrows(InvalidDomainException.class, () -> {this.m1.prob(testV6);});
+		assertThrows(InvalidSizeException.class, () -> {this.m1.prob(df2.getDomain(), testV7);});
+		assertThrows(InvalidDomainException.class, () -> {this.m1.prob(df2.getDomain(), testV6);});
 	}
 
 	
@@ -144,7 +144,7 @@ class GeneralTest {
 			Classifier classifier = new Classifier(data, 0.2, true);
 			System.out.println(classifier.frequence[0]);
 			System.out.println(classifier.frequence[1]);
-			classifier.getAccuracyBin();
+			classifier.getAccuracyBin(data);
 
 			FileInputStream f1 = new FileInputStream(new File("name.txt"));
 			ObjectInputStream oi = new ObjectInputStream(f1);
@@ -172,6 +172,6 @@ class GeneralTest {
 		int[] vv= {1, 0, 2, 3, 2, 0, 1, 1, 1, 1};
 		MRFT mrft = new MRFT(data.datasetInicialization().get(1), t, 0, 0.2);
 		mrft.setdSpec(1);
-		System.out.println(mrft.prob(vv));
+		System.out.println(mrft.prob(data.getDomain(), vv));
 	}
 }

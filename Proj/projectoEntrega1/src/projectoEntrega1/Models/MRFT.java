@@ -20,8 +20,6 @@ public class MRFT implements Serializable{
 	//e destino da aresta que induz a orientação da árvore.
 	//Aqui a lista das arestas foi considerada uma variável da MRFT, uma vez que é recorrentemente utilizada,
 	logo não se justificava o seu cálculo ser realizado no grafo.*/
-	private Dataset dataset;
-	private WeightedGraph graph;
 	private int oSpec;
 	private int dSpec;
 	private double delta;
@@ -35,8 +33,7 @@ public class MRFT implements Serializable{
 			if(oSpec <= tree.getDim() ) {
 				//Começa por inicializar todas as variáveis da classe, o dataset, origem da aresta especial e o delta
 				//como os valores dados, a lista das arestas como uma lista vazia e o grafo como um grafo vazio.
-				this.dataset = dataset;
-				this.graph = new WeightedGraph(tree.getDim());
+				WeightedGraph graph = new WeightedGraph(tree.getDim());
 				this.lisEdges = new ArrayList<int[]>();
 				this.oSpec = oSpec;
 				this.delta = delta;
@@ -55,7 +52,7 @@ public class MRFT implements Serializable{
 						for(int i:tree.offspring(node)) {
 							stack.push(i);
 							if(!visited[i]) {
-								this.graph.addEdge(node, i, 1);
+								graph.addEdge(node, i, 1);
 								this.lisEdges.add(new int[] {node, i});}
 						}
 					}
@@ -69,13 +66,13 @@ public class MRFT implements Serializable{
 					//As dimensões da matriz inerente à aresta que liga os nós i e j deverá ter dimensões
 					//domain[i] + 1 * domain[j] + 1, uma vez que deverá armazenar todas as combinações possíveis
 					//que os nós i e j podem tomar.
-					this.phis.add(new double[this.dataset.getDomain()[lisEdges.get(i)[0]]+1][this.dataset.getDomain()[lisEdges.get(i)[1]]+1]);
+					this.phis.add(new double[dataset.getDomain()[lisEdges.get(i)[0]]+1][dataset.getDomain()[lisEdges.get(i)[1]]+1]);
 					
 					//População das matrizes, com os valores dados pelas fórmulas apresentadas no enunciado.
-					for(int j = 0; j<=this.dataset.getDomain()[lisEdges.get(i)[0]]; j++) {
-						for(int k = 0; k<=this.dataset.getDomain()[lisEdges.get(i)[1]]; k++) {
+					for(int j = 0; j<=dataset.getDomain()[lisEdges.get(i)[0]]; j++) {
+						for(int k = 0; k<=dataset.getDomain()[lisEdges.get(i)[1]]; k++) {
 							double [][] phi = this.phis.get(i).clone();
-							phi[j][k] = this.calcPhi(this.lisEdges.get(i)[0], this.lisEdges.get(i)[1], j, k);
+							phi[j][k] = this.calcPhi(dataset, this.lisEdges.get(i)[0], this.lisEdges.get(i)[1], j, k);
 							this.phis.set(i, phi);
 						}
 					}
@@ -92,41 +89,19 @@ public class MRFT implements Serializable{
 	
 	//Função auxiliar para calcular o valor de phi(x1, x2), segundo a fórmula apresentada no enunciado.
 	//Note-se que a inicialização das ArrayLists é necessária uma vez que a função Count toma ArrayLists como inputs.
-	public double calcPhi(int i1, int i2, int x1, int x2) {
+	public double calcPhi(Dataset dataset, int i1, int i2, int x1, int x2) {
 		int[] temp1I = {i1, i2};
 		int[] temp1V = {x1, x2};
 		int[] temp2I = {i1};
 		int[] temp2V = {x1};
 		if(i1==this.oSpec && i2==this.dSpec) {
-			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.getValues().size() + this.delta*(this.dataset.getDomain()[i1]+1)*(this.dataset.getDomain()[i2] +1));
+			return (dataset.count(temp1I, temp1V) + this.delta)/(dataset.getValues().size() + this.delta*(dataset.getDomain()[i1]+1)*(dataset.getDomain()[i2] +1));
 		}
 		else {
-			return (this.dataset.count(temp1I, temp1V) + this.delta)/(this.dataset.count(temp2I, temp2V) + this.delta*(this.dataset.getDomain()[i2]+1));
+			return (dataset.count(temp1I, temp1V) + this.delta)/(dataset.count(temp2I, temp2V) + this.delta*(dataset.getDomain()[i2]+1));
 		}
 	}
 	
-	
-	
-	public Dataset getDataset() {
-		return dataset;
-	}
-
-
-	public void setDataset(Dataset dataset) {
-		this.dataset = dataset;
-	}
-
-
-	public WeightedGraph getGraph() {
-		return graph;
-	}
-
-
-	public void setGraph(WeightedGraph graph) {
-		this.graph = graph;
-	}
-
-
 	public int getoSpec() {
 		return oSpec;
 	}
@@ -178,13 +153,14 @@ public class MRFT implements Serializable{
 
 
 	//Função que recebe um vetor e retorna a probabilidade de ele se encontrar na MRFT, novamente segundo a fórmula apresentada no enunciado.
-	public double prob(int[] vector) throws InvalidSizeException, InvalidDomainException {
+	public double prob(int[] dom, int[] vector) throws InvalidSizeException, InvalidDomainException {
 		//try {
-		if(vector.length == this.dataset.getDim()) {
+		if(vector.length == dom.length-1) {
 			boolean inDomain = true;
 			int failedAt = 0;
-			for(int i = 0; i<vector.length && inDomain; i++) {
-				if(vector[i] > this.dataset.getDomain()[i]) {
+			for(int i = 0; i<vector.length-1 && inDomain; i++) {
+				if(vector[i] > dom[i]) {
+					System.out.println(dom[i]);
 					inDomain = false;
 					failedAt = i;
 				}
@@ -199,7 +175,7 @@ public class MRFT implements Serializable{
 				return prob;
 			}
 			else {
-				throw new InvalidDomainException("Vector is not in the required domain for classification. In particular, variable" + String.valueOf(failedAt+1) + "is not valid for the current domain");
+				throw new InvalidDomainException("<html> O vetor não se encontra no domínio pedido. <br> Em particular, a variável " + String.valueOf(failedAt+1) + "<br> não é válida para o domínio do conjunto de dados fornecido");
 			}
 		} else {
 			throw new InvalidSizeException("Vector size must be the same as the dataset dimension!");
