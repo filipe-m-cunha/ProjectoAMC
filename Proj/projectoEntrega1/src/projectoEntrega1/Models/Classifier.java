@@ -18,15 +18,49 @@ public class Classifier implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int[] domain;
-	public double[] frequence;
-	public ArrayList<MRFT> mrfts;
+	private int[] fDomain;
+	private double[] frequence;
+	private ArrayList<MRFT> mrfts;
 	
+	public int[] getfDomain() {
+		return fDomain;
+	}
+
+	public void setfDomain(int[] fDomain) {
+		this.fDomain = fDomain;
+	}
+
+	public int[] getDomain() {
+		return domain;
+	}
+
+	public void setDomain(int[] domain) {
+		this.domain = domain;
+	}
+
+	public double[] getFrequence() {
+		return frequence;
+	}
+
+	public void setFrequence(double[] frequence) {
+		this.frequence = frequence;
+	}
+
+	public ArrayList<MRFT> getMrfts() {
+		return mrfts;
+	}
+
+	public void setMrfts(ArrayList<MRFT> mrfts) {
+		this.mrfts = mrfts;
+	}
+
 	/*Inicializa um objecto classifier, com uma lista de MRFT's e um array de frequênicias.
 	*Confirma que os tamanhos dos dois arrays coincidem (deve haver um MRFT para cada classe, 
 	e uma frequência para cada classe)*/
 	public Classifier(Dataset data, double delta, boolean save) throws Exception {
 		this.frequence = data.getFrequencies();
 		this.domain = data.getDomain().clone();
+		this.fDomain = data.removeLast(data.getDomain().clone());
 		ArrayList<Dataset> datasets = data.datasetInicialization();
 		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
 		for(Dataset d:datasets) {
@@ -47,6 +81,7 @@ public class Classifier implements Serializable {
 	public Classifier(String dataFilePath, double delta, boolean save) throws Exception {
 		Dataset data = new Dataset(dataFilePath);
 		this.domain = data.getDomain().clone();
+		this.fDomain = data.removeLast(data.getDomain().clone());
 		this.frequence = data.getFrequencies();
 		ArrayList<Dataset> datasets = data.datasetInicialization();
 		ArrayList<MRFT> mrfts = new ArrayList<MRFT>();
@@ -56,7 +91,8 @@ public class Classifier implements Serializable {
 		}
 		this.mrfts = mrfts;
 		if(save) {
-			String name = dataFilePath.substring(0, dataFilePath.length() - 4) + ".txt";
+			String filePath = new File("").getAbsolutePath();
+			String name = filePath + dataFilePath.substring(0, dataFilePath.length() - 4) + ".txt";
 			System.out.println(name);
 			FileOutputStream f = new FileOutputStream(new File(name));
 			ObjectOutputStream o = new ObjectOutputStream(f);
@@ -113,7 +149,6 @@ public class Classifier implements Serializable {
 		double TNR = (TN)/(TN + FP);
 		double pt = (Math.sqrt(TPR*(-TNR+1)) + TNR -1)/(TPR + TNR - 1);
 		double F1 = 2*TP/(2*TP + FP + FN);
-		System.out.println("Accuracy: " + accuracy + " Recall: " + TPR + "Prevalence Threshold: " + pt + " F1 Score: " + F1);
 		double[] res = new double[] {accuracy, TPR, pt, F1};
 		return res;
 	}

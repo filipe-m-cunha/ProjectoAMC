@@ -1,4 +1,4 @@
-package projectoEntrega1;
+package projectoEntrega1.InterfaceHelpers;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -8,10 +8,10 @@ import javax.swing.border.Border;
 
 public class RoundedBorder implements Border {
 
-	private int radius;
+	public int radius;
 
 
-    RoundedBorder(int radius) {
+    public RoundedBorder(int radius) {
         this.radius = radius;
     }
 

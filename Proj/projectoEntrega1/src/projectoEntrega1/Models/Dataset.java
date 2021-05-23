@@ -1,6 +1,7 @@
 package projectoEntrega1.Models;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,7 +58,14 @@ public class Dataset implements Serializable {
 		this.dim = 0;
 		this.values = new ArrayList<int[]>();
 		this.domain = null;
-		BufferedReader reader = new BufferedReader(new FileReader(file));
+		String filePath = new File("").getAbsolutePath();
+		BufferedReader reader;
+		if(file.contains(filePath.subSequence(0, 4))) {
+			reader = new BufferedReader(new FileReader(file));
+		}
+		else {
+			reader = new BufferedReader(new FileReader(filePath + file));
+		}
 		String line;
 		while((line=reader.readLine())!= null) {
 			String [] sl = line.split(",");

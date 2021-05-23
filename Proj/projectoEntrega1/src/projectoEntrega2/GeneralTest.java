@@ -1,4 +1,4 @@
-package projectoEntrega1;
+package projectoEntrega2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -137,20 +137,14 @@ class GeneralTest {
 	
 	@Test
 	void testActualData() throws Exception {
-		Dataset data = new Dataset("C:\\\\Users\\\\filip\\\\OneDrive\\\\Documentos\\\\IST\\\\3 Ano\\\\2 Sem\\\\AMC\\\\Projecto\\\\ProjectoAMC\\\\Proj\\\\projectoEntrega1\\\\src\\\\projectoEntrega1\\\\bcancer.csv");
+		Dataset data = new Dataset("////data////bcancer.csv");
 		//for(int i=0; i<1; i++) {
 			//double[] deltas = new double[] {0, 0.000001, 0.00005, 0.00001, 0.0005, 0.001, 0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.5, 0.75, 1, 2, 3, 4, 5, 10};
 			//for(double j:deltas) {
 			Classifier classifier = new Classifier(data, 0.2, true);
-			System.out.println(classifier.frequence[0]);
-			System.out.println(classifier.frequence[1]);
+			System.out.println(classifier.getFrequence()[0]);
+			System.out.println(classifier.getFrequence()[1]);
 			classifier.getAccuracyBin(data);
-
-			FileInputStream f1 = new FileInputStream(new File("name.txt"));
-			ObjectInputStream oi = new ObjectInputStream(f1);
-			Classifier classi = (Classifier) oi.readObject();
-			f1.close();
-			oi.close(); 
 			//}
 		//}
 	}
@@ -168,7 +162,7 @@ class GeneralTest {
 		t.addEdge(2, 7,1);
 		t.addEdge(3, 8,1);
 		t.addEdge(3, 9,1);
-		Dataset data = new Dataset("C:\\\\Users\\\\filip\\\\OneDrive\\\\Documentos\\\\IST\\\\3 Ano\\\\2 Sem\\\\AMC\\\\Projecto\\\\ProjectoAMC\\\\Proj\\\\projectoEntrega1\\\\src\\\\projectoEntrega1\\\\bcancer.csv");
+		Dataset data = new Dataset("////data////bcancer.csv");
 		int[] vv= {1, 0, 2, 3, 2, 0, 1, 1, 1, 1};
 		MRFT mrft = new MRFT(data.datasetInicialization().get(1), t, 0, 0.2);
 		mrft.setdSpec(1);
